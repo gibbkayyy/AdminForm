@@ -1,335 +1,581 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛡️ Slime RNG Admin Application</title>
-    <style>
-        /* Immersive Custom Dark Mode Gamer Theme */
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0b0c10;
-            color: #c5c6c7;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d12">
+  <title>🛡️ Slime RNG Admin Application</title>
+  <meta name="description" content="Apply to become an admin for Slime RNG.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-        /* Fixed container dimensions with built-in internal scrollbar */
-        .form-container {
-            width: 100%;
-            max-width: 600px;
-            height: 85vh; /* Locks height to window ratio */
-            background: #1f2833;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(102, 252, 241, 0.1);
-            overflow-y: auto; /* Activates internal scrolling */
-            border: 2px solid #66fcf1; /* Neon Cyan Glow */
-            display: flex;
-            flex-direction: column;
-        }
+    * { box-sizing: border-box; }
 
-        /* Smooth scrollbar styling for a polished gamer UI */
-        .form-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        .form-container::-webkit-scrollbar-track {
-            background: #0b0c10;
-            border-bottom-right-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-        .form-container::-webkit-scrollbar-thumb {
-            background: #66fcf1;
-            border-radius: 10px;
-        }
+    html { scroll-behavior: smooth; }
 
-        .header-card {
-            padding: 32px;
-            background: #151a21;
-            border-bottom: 1px solid #45f3ff33;
-            text-align: center;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f5f7fb;
+      background: #080a0f;
+      overflow-x: hidden;
+    }
 
-        h1 {
-            margin: 0 0 12px 0;
-            font-size: 26px;
-            font-weight: 800;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 12px rgba(102, 252, 241, 0.5);
-        }
+    /* Animated background */
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(92, 111, 145, .13), transparent 30%),
+        radial-gradient(circle at 85% 75%, rgba(79, 92, 119, .10), transparent 32%),
+        #080a0f;
+    }
 
-        .description {
-            font-size: 14px;
-            color: #a9b7c6;
-            line-height: 1.6;
-        }
+    .background::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 55px 55px;
+      transform: rotate(-7deg);
+      animation: gridMove 24s linear infinite;
+    }
 
-        .required-notice {
-            color: #ff4a4a;
-            font-size: 13px;
-            margin-top: 14px;
-            font-weight: 600;
-        }
+    .orb {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      filter: blur(75px);
+      opacity: .18;
+      animation: float 14s ease-in-out infinite alternate;
+    }
 
-        .question-card {
-            padding: 24px 32px;
-            border-bottom: 1px solid #151a21;
-        }
+    .orb.one { background: #75839d; top: -170px; left: -120px; }
+    .orb.two { background: #52627d; right: -150px; bottom: -170px; animation-delay: -5s; }
+    .orb.three { background: #aab4c6; width: 230px; height: 230px; left: 58%; top: 38%; opacity: .08; animation-delay: -9s; }
 
-        .question-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    .particles {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,.25) 1px, transparent 1.5px);
+      background-size: 130px 130px, 190px 190px;
+      background-position: 10px 20px, 70px 80px;
+      animation: particleDrift 30s linear infinite;
+      opacity: .18;
+    }
 
-        .required-star {
-            color: #ff4a4a;
-            margin-left: 4px;
-        }
+    @keyframes gridMove {
+      from { transform: translate3d(0,0,0) rotate(-7deg); }
+      to { transform: translate3d(55px,55px,0) rotate(-7deg); }
+    }
 
-        .optional-text {
-            color: #64748b;
-            font-size: 12px;
-            font-weight: normal;
-            margin-left: 4px;
-        }
+    @keyframes particleDrift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-130px); }
+    }
 
-        input[type="text"], input[type="number"], textarea {
-            width: 100%;
-            border: 1px solid #45f3ff33;
-            background-color: #0b0c10;
-            color: #ffffff;
-            font-size: 14px;
-            padding: 12px 16px;
-            border-radius: 6px;
-            outline: none;
-            transition: all 0.2s ease;
-            font-family: inherit;
-            box-sizing: border-box;
-        }
+    @keyframes float {
+      from { transform: translate3d(-25px, -15px, 0) scale(1); }
+      to { transform: translate3d(30px, 25px, 0) scale(1.08); }
+    }
 
-        input[type="text"]:focus, input[type="number"]:focus, textarea:focus {
-            border-color: #66fcf1;
-            box-shadow: 0 0 8px rgba(102, 252, 241, 0.3);
-            background-color: #151a21;
-        }
+    .page {
+      width: min(760px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 70px 0 80px;
+    }
 
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeUp .7s ease both;
+    }
 
-        .radio-group, .rating-container {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px;
-            flex-wrap: wrap;
-        }
+    .shield {
+      width: 62px;
+      height: 62px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 15px 45px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.08);
+      font-size: 28px;
+      animation: shieldFloat 4s ease-in-out infinite;
+    }
 
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: #cbd5e1;
-            cursor: pointer;
-            background: #0b0c10;
-            padding: 10px 16px;
-            border-radius: 6px;
-            border: 1px solid #45f3ff33;
-            transition: all 0.2s;
-        }
+    @keyframes shieldFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
 
-        .radio-option:hover {
-            border-color: #66fcf1;
-        }
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 42px);
+      letter-spacing: -1.4px;
+      line-height: 1.12;
+    }
 
-        .radio-option input[type="radio"] {
-            accent-color: #66fcf1;
-            margin: 0;
-            cursor: pointer;
-        }
+    .intro {
+      max-width: 650px;
+      margin: 15px auto 0;
+      color: #aeb5c2;
+      line-height: 1.65;
+      font-size: 14px;
+    }
 
-        .rating-container {
-            justify-content: space-between;
-            background: #0b0c10;
-            padding: 16px;
-            border-radius: 8px;
-            border: 1px solid #45f3ff33;
-            width: 100%;
-            box-sizing: border-box;
-        }
+    .intro strong { color: #e9edf4; }
 
-        .rating-cell {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            font-weight: 600;
-        }
+    .form-card {
+      position: relative;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,.105);
+      border-radius: 24px;
+      background: rgba(16,19,27,.78);
+      box-shadow: 0 25px 80px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.045);
+      backdrop-filter: blur(20px);
+      animation: fadeUp .8s .1s ease both;
+    }
 
-        .rating-cell input {
-            accent-color: #66fcf1;
-            cursor: pointer;
-            margin: 0;
-        }
+    .question {
+      margin-bottom: 26px;
+    }
 
-        .rating-label {
-            font-size: 12px;
-            color: #a9b7c6;
-            font-weight: 600;
-            align-self: center;
-        }
+    label.question-title {
+      display: block;
+      margin-bottom: 10px;
+      color: #eef1f6;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
 
-        .actions {
-            padding: 24px 32px 32px 32px;
-            display: flex;
-            gap: 16px;
-        }
+    .required {
+      color: #9ca8ba;
+      font-size: 11px;
+      font-weight: 500;
+      margin-left: 5px;
+    }
 
-        button {
-            flex: 2;
-            background-color: #66fcf1;
-            color: #0b0c10;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.2s ease;
-        }
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.10);
+      outline: none;
+      border-radius: 12px;
+      padding: 13px 14px;
+      color: #f3f5f9;
+      background: rgba(255,255,255,.045);
+      font: inherit;
+      font-size: 14px;
+      transition: border-color .2s ease, background .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
 
-        button:hover {
-            background-color: #45f3ff;
-            box-shadow: 0 0 15px rgba(102, 252, 241, 0.5);
-            transform: translateY(-1px);
-        }
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+      line-height: 1.55;
+    }
 
-        .clear-btn {
-            flex: 1;
-            background: transparent;
-            color: #a9b7c6;
-            border: 1px solid #45f3ff33;
-        }
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(183,194,211,.55);
+      background: rgba(255,255,255,.065);
+      box-shadow: 0 0 0 4px rgba(170,183,204,.08);
+      transform: translateY(-1px);
+    }
 
-        .clear-btn:hover {
-            background: #0b0c10;
-            color: #ffffff;
-            border-color: #66fcf1;
-        }
+    input::placeholder, textarea::placeholder { color: #697281; }
 
-        .admin-link-container {
-            text-align: center;
-            padding-bottom: 24px;
-            font-size: 12px;
-        }
+    .options {
+      display: grid;
+      gap: 9px;
+    }
 
-        .admin-link {
-            color: #45f3ffcc;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
+    .option {
+      position: relative;
+    }
 
-        .admin-link:hover {
-            color: #66fcf1;
-            text-shadow: 0 0 5px rgba(102, 252, 241, 0.5);
-        }
+    .option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(5, 5, 8, 0.9);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            z-index: 1000;
-        }
+    .option label {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 48px;
+      padding: 11px 14px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,.085);
+      border-radius: 12px;
+      background: rgba(255,255,255,.032);
+      color: #bfc5d0;
+      font-size: 13px;
+      transition: .2s ease;
+    }
 
-        .modal-content {
-            background: #1f2833;
-            padding: 32px;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 0 40px rgba(102, 252, 241, 0.3);
-            border: 2px solid #66fcf1;
-            box-sizing: border-box;
-            text-align: center;
-        }
+    .option label::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      flex: 0 0 16px;
+      border: 1px solid #606a79;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 4px #10131a;
+      transition: .2s ease;
+    }
 
-        .modal h2 {
-            margin-top: 0;
-            color: #66fcf1;
-            font-size: 26px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .option label:hover {
+      border-color: rgba(255,255,255,.20);
+      background: rgba(255,255,255,.055);
+      transform: translateX(3px);
+      color: #edf0f5;
+    }
 
-        .close-btn {
-            margin-top: 24px;
-            width: 100%;
-        }
+    .option input:checked + label {
+      border-color: rgba(210,218,230,.35);
+      background: rgba(220,228,240,.075);
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.025);
+    }
 
-        [data-fs-error] {
-            color: #ff4a4a;
-            font-size: 12px;
-            margin-top: 6px;
-            display: block;
-            font-weight: 600;
-        }
-    </style>
+    .option input:checked + label::before {
+      border-color: #dce2eb;
+      background: #dce2eb;
+      box-shadow: inset 0 0 0 4px #151820;
+    }
+
+    .rating {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 7px;
+    }
+
+    .rating input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .rating label {
+      display: grid;
+      place-items: center;
+      height: 44px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 10px;
+      background: rgba(255,255,255,.035);
+      color: #9ca4b2;
+      font-weight: 600;
+      font-size: 13px;
+      transition: .2s ease;
+    }
+
+    .rating label:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.25);
+      color: #fff;
+      background: rgba(255,255,255,.07);
+    }
+
+    .rating input:checked + label {
+      background: #e8ebf0;
+      color: #10131a;
+      border-color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(255,255,255,.08);
+    }
+
+    .rating-note {
+      margin-top: 9px;
+      color: #737c8b;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .submit-wrap {
+      margin-top: 34px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 15px 20px;
+      cursor: pointer;
+      color: #0b0d12;
+      background: #edf0f4;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      background: #fff;
+      box-shadow: 0 17px 38px rgba(0,0,0,.35);
+    }
+
+    button:active {
+      transform: translateY(0) scale(.985);
+    }
+
+    button:disabled {
+      opacity: .65;
+      cursor: wait;
+      transform: none;
+    }
+
+    .footer {
+      text-align: center;
+      color: #596170;
+      font-size: 11px;
+      margin-top: 22px;
+      animation: fadeUp .9s .2s ease both;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 50px 20px;
+      animation: successIn .5s ease both;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.07);
+      font-size: 27px;
+    }
+
+    .success h2 {
+      margin: 0 0 10px;
+      font-size: 25px;
+    }
+
+    .success p {
+      margin: 0;
+      color: #aeb5c2;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes successIn {
+      from { opacity: 0; transform: scale(.97) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .page { width: min(100% - 20px, 760px); padding: 38px 0 50px; }
+      .form-card { padding: 22px 17px; border-radius: 19px; }
+      .rating { gap: 4px; }
+      .rating label { height: 39px; font-size: 12px; border-radius: 8px; }
+      .hero { margin-bottom: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- LOCKED HEIGHT SCROLLABLE MAIN FORM CONTAINER -->
-    <div class="form-container" id="formView">
-        <div class="header-card">
-            <h1>🛡️ Slime RNG Admin Application</h1>
-            <div class="description">
-                Fill out the application appropriately. <strong>Make sure you like Slime RNG on Scratch and follow gibbkayyy!</strong>
-            </div>
-            <div class="required-notice">* Required Field</div>
-            <div data-fs-error style="margin-top:10px;"></div>
+  <div class="background" aria-hidden="true">
+    <div class="particles"></div>
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+
+  <main class="page">
+    <header class="hero">
+      <div class="shield">🛡️</div>
+      <h1>Slime RNG Admin Application</h1>
+      <p class="intro">
+        Fill out the application appropriately.
+        <strong>Make sure you like Slime RNG on Scratch and follow gibbkayyy!</strong>
+      </p>
+    </header>
+
+    <section class="form-card">
+      <form id="adminForm" action="https://formspree.io/f/moeqowwq" method="POST">
+
+        <div class="question">
+          <label class="question-title" for="username">
+            What is your Scratch Username? <span class="required">Required</span>
+          </label>
+          <input id="username" name="Scratch Username" type="text"
+                 placeholder="Enter your Scratch username" autocomplete="off" required>
+          <div class="rating-note">Make sure it is correct, as you will be contacted via Scratch.</div>
         </div>
 
-        <form id="appForm">
-            <!-- Question 1: Username -->
-            <div class="question-card">
-                <div class="question-title">What is your Scratch Username? <span style="font-weight:normal; font-size:12px; color:#a9b7c6;">(make sure it is correct as you will be contacted via Scratch)</span><span class="required-star">*</span></div>
-                <input type="text" id="username" name="Scratch_Username" placeholder="put in your scratch username..." data-fs-field required>
-                <span data-fs-error="Scratch_Username"></span>
+        <div class="question">
+          <label class="question-title">Are you active on Scratch? <span class="required">Required</span></label>
+          <div class="options">
+            <div class="option">
+              <input id="active-yes" name="Active on Scratch" type="radio" value="Yes" required>
+              <label for="active-yes">Yes</label>
             </div>
-
-            <!-- Question 2: Active on Scratch -->
-            <div class="question-card">
-                <div class="question-title">Are you active on Scratch?<span class="required-star">*</span></div>
-                <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="Active_On_Scratch" value="Yes" required> Yes</label>
-                    <label class="radio-option"><input type="radio" name="Active_On_Scratch" value="No"> No</label>
-                    <label class="radio-option"><input type="radio" name="Active_On_Scratch" value="Sometimes"> Sometimes</label>
-                </div>
-                <span data-fs-error="Active_On_Scratch"></span>
+            <div class="option">
+              <input id="active-no" name="Active on Scratch" type="radio" value="No">
+              <label for="active-no">No</label>
             </div>
+          </div>
+        </div>
 
-            <!-- Question 3: Hours a week -->
-            <div class="question-card">
-                <div class="question-title">How many hours a week do you spend on Scratch?<span class="required-star">*</span></div>
+        <div class="question">
+          <label class="question-title" for="hours">
+            How many hours a week do you spend on Scratch? <span class="required">Required</span>
+          </label>
+          <input id="hours" name="Hours per week on Scratch" type="text"
+                 placeholder="e.g. 5 hours" required>
+        </div>
+
+        <div class="question">
+          <label class="question-title" for="why">
+            Why do you want to be an Admin For Slime RNG? <span class="required">Required</span>
+          </label>
+          <textarea id="why" name="Why they want to be an admin"
+                    placeholder="Tell us why you would be a good admin..." required></textarea>
+        </div>
+
+        <div class="question">
+          <label class="question-title">Are you a Scratcher? <span class="required">Required</span></label>
+          <div class="options">
+            <div class="option">
+              <input id="scratcher-yes" name="Are you a Scratcher" type="radio" value="Yes" required>
+              <label for="scratcher-yes">Yes</label>
+            </div>
+            <div class="option">
+              <input id="scratcher-no" name="Are you a Scratcher" type="radio" value="No">
+              <label for="scratcher-no">No</label>
+            </div>
+          </div>
+          <div class="rating-note">You can check this on your Scratch profile.</div>
+        </div>
+
+        <div class="question">
+          <label class="question-title" for="questions">
+            Put in any questions you have <span class="required">Optional</span>
+          </label>
+          <textarea id="questions" name="Applicant Questions"
+                    placeholder="Anything you want to ask?"></textarea>
+        </div>
+
+        <div class="question">
+          <label class="question-title">
+            Rate Slime RNG out of 10 to help improve the game!
+            <span class="required">Required</span>
+          </label>
+
+          <div class="rating">
+            <input id="r1" name="Slime RNG Rating" type="radio" value="1" required><label for="r1">1</label>
+            <input id="r2" name="Slime RNG Rating" type="radio" value="2"><label for="r2">2</label>
+            <input id="r3" name="Slime RNG Rating" type="radio" value="3"><label for="r3">3</label>
+            <input id="r4" name="Slime RNG Rating" type="radio" value="4"><label for="r4">4</label>
+            <input id="r5" name="Slime RNG Rating" type="radio" value="5"><label for="r5">5</label>
+            <input id="r6" name="Slime RNG Rating" type="radio" value="6"><label for="r6">6</label>
+            <input id="r7" name="Slime RNG Rating" type="radio" value="7"><label for="r7">7</label>
+            <input id="r8" name="Slime RNG Rating" type="radio" value="8"><label for="r8">8</label>
+            <input id="r9" name="Slime RNG Rating" type="radio" value="9"><label for="r9">9</label>
+            <input id="r10" name="Slime RNG Rating" type="radio" value="10"><label for="r10">10</label>
+          </div>
+
+          <div class="rating-note">
+            This is anonymous and will not affect if you get Admin or not! Give a genuine rating of the game!
+          </div>
+        </div>
+
+        <div class="question">
+          <label class="question-title" for="improve">
+            Give reasons on how Slime RNG could Improve <span class="required">Optional</span>
+          </label>
+          <textarea id="improve" name="How Slime RNG could improve"
+                    placeholder="Tell us what you think could be improved..."></textarea>
+        </div>
+
+        <div class="submit-wrap">
+          <button id="submitButton" type="submit">Submit Application</button>
+        </div>
+      </form>
+
+      <div class="success" id="successMessage">
+        <div class="success-icon">✓</div>
+        <h2>Form Submitted!</h2>
+        <p>I will contact you via your Scratch profile as soon as I can!</p>
+      </div>
+    </section>
+
+    <div class="footer">Slime RNG • Admin Applications</div>
+  </main>
+
+  <script>
+    const form = document.getElementById("adminForm");
+    const button = document.getElementById("submitButton");
+    const success = document.getElementById("successMessage");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Submitting...";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { "Accept": "application/json" }
+        });
+
+        if (response.ok) {
+          form.style.display = "none";
+          success.style.display = "block";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          throw new Error("Submission failed");
+        }
+      } catch (error) {
+        button.disabled = false;
+        button.textContent = "Submit Application";
+        alert("Something went wrong while submitting the form. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
