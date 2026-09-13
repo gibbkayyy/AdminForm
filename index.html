@@ -1,101 +1,141 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b0d12">
+  <meta name="theme-color" content="#090b10">
   <title>🛡️ Slime RNG Admin Application</title>
-  <meta name="description" content="Apply to become an admin for Slime RNG.">
+  <meta name="description" content="Slime RNG Admin Application">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * {
+      box-sizing: border-box;
+    }
 
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #f5f7fb;
-      background: #080a0f;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #f4f6fa;
+      background: #090b10;
       overflow-x: hidden;
     }
 
-    /* Animated background */
+    /* =========================
+       ANIMATED BACKGROUND
+       ========================= */
+
     .background {
       position: fixed;
       inset: 0;
-      z-index: -3;
+      z-index: -10;
       overflow: hidden;
       background:
-        radial-gradient(circle at 15% 15%, rgba(92, 111, 145, .13), transparent 30%),
-        radial-gradient(circle at 85% 75%, rgba(79, 92, 119, .10), transparent 32%),
-        #080a0f;
+        radial-gradient(circle at 20% 15%, rgba(120, 135, 160, .13), transparent 28%),
+        radial-gradient(circle at 82% 78%, rgba(100, 115, 140, .10), transparent 30%),
+        #090b10;
     }
 
     .background::before {
       content: "";
       position: absolute;
-      inset: -30%;
+      inset: -25%;
       background-image:
         linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 55px 55px;
-      transform: rotate(-7deg);
-      animation: gridMove 24s linear infinite;
+      background-size: 58px 58px;
+      transform: rotate(-6deg);
+      animation: gridMove 28s linear infinite;
+    }
+
+    .background::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.38) 100%);
+      pointer-events: none;
     }
 
     .orb {
       position: absolute;
-      width: 360px;
-      height: 360px;
       border-radius: 50%;
-      filter: blur(75px);
-      opacity: .18;
-      animation: float 14s ease-in-out infinite alternate;
+      filter: blur(85px);
+      opacity: .16;
+      pointer-events: none;
+      animation: float 15s ease-in-out infinite alternate;
     }
 
-    .orb.one { background: #75839d; top: -170px; left: -120px; }
-    .orb.two { background: #52627d; right: -150px; bottom: -170px; animation-delay: -5s; }
-    .orb.three { background: #aab4c6; width: 230px; height: 230px; left: 58%; top: 38%; opacity: .08; animation-delay: -9s; }
+    .orb.one {
+      width: 390px;
+      height: 390px;
+      left: -150px;
+      top: -170px;
+      background: #71809a;
+    }
+
+    .orb.two {
+      width: 420px;
+      height: 420px;
+      right: -180px;
+      bottom: -190px;
+      background: #56657e;
+      animation-delay: -6s;
+    }
+
+    .orb.three {
+      width: 220px;
+      height: 220px;
+      left: 58%;
+      top: 40%;
+      background: #aeb9ca;
+      opacity: .055;
+      animation-delay: -10s;
+    }
 
     .particles {
       position: absolute;
       inset: 0;
+      opacity: .18;
       background-image:
         radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1.5px),
         radial-gradient(circle, rgba(255,255,255,.25) 1px, transparent 1.5px);
-      background-size: 130px 130px, 190px 190px;
-      background-position: 10px 20px, 70px 80px;
-      animation: particleDrift 30s linear infinite;
-      opacity: .18;
+      background-size: 135px 135px, 195px 195px;
+      background-position: 20px 30px, 80px 90px;
+      animation: particlesMove 35s linear infinite;
     }
 
     @keyframes gridMove {
-      from { transform: translate3d(0,0,0) rotate(-7deg); }
-      to { transform: translate3d(55px,55px,0) rotate(-7deg); }
+      from { transform: translate(0,0) rotate(-6deg); }
+      to { transform: translate(58px,58px) rotate(-6deg); }
     }
 
-    @keyframes particleDrift {
+    @keyframes particlesMove {
       from { transform: translateY(0); }
-      to { transform: translateY(-130px); }
+      to { transform: translateY(-135px); }
     }
 
     @keyframes float {
-      from { transform: translate3d(-25px, -15px, 0) scale(1); }
-      to { transform: translate3d(30px, 25px, 0) scale(1.08); }
+      from { transform: translate(-20px,-15px) scale(1); }
+      to { transform: translate(30px,25px) scale(1.08); }
     }
 
+    /* =========================
+       LAYOUT
+       ========================= */
+
     .page {
-      width: min(760px, calc(100% - 32px));
+      width: min(760px, calc(100% - 30px));
       margin: 0 auto;
-      padding: 70px 0 80px;
+      padding: 58px 0 70px;
     }
 
     .hero {
       text-align: center;
-      margin-bottom: 30px;
       animation: fadeUp .7s ease both;
     }
 
@@ -104,97 +144,238 @@
       height: 62px;
       display: grid;
       place-items: center;
-      margin: 0 auto 20px;
-      border: 1px solid rgba(255,255,255,.12);
+      margin: 0 auto 19px;
+      border: 1px solid rgba(255,255,255,.11);
       border-radius: 18px;
       background: rgba(255,255,255,.055);
-      box-shadow: 0 15px 45px rgba(0,0,0,.25), inset 0 1px rgba(255,255,255,.08);
-      font-size: 28px;
+      box-shadow:
+        0 18px 50px rgba(0,0,0,.28),
+        inset 0 1px rgba(255,255,255,.08);
+      font-size: 27px;
       animation: shieldFloat 4s ease-in-out infinite;
     }
 
     @keyframes shieldFloat {
-      0%,100% { transform: translateY(0); }
+      0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
     }
 
     h1 {
       margin: 0;
       font-size: clamp(28px, 5vw, 42px);
-      letter-spacing: -1.4px;
       line-height: 1.12;
+      letter-spacing: -1.5px;
     }
 
     .intro {
       max-width: 650px;
-      margin: 15px auto 0;
+      margin: 14px auto 27px;
       color: #aeb5c2;
-      line-height: 1.65;
       font-size: 14px;
+      line-height: 1.65;
     }
 
-    .intro strong { color: #e9edf4; }
+    .intro strong {
+      color: #edf0f5;
+    }
 
-    .form-card {
-      position: relative;
+    /* =========================
+       NAVIGATION
+       ========================= */
+
+    .nav {
+      display: flex;
+      gap: 6px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto 22px;
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 14px;
+      background: rgba(15,18,25,.78);
+      box-shadow:
+        0 14px 45px rgba(0,0,0,.22),
+        inset 0 1px rgba(255,255,255,.04);
+      backdrop-filter: blur(18px);
+      animation: fadeUp .75s .05s ease both;
+    }
+
+    .nav-button {
+      width: auto;
+      min-width: 150px;
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #929baa;
+      background: transparent;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 650;
+      box-shadow: none;
+      transition:
+        transform .2s ease,
+        color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .nav-button:hover {
+      transform: translateY(-2px);
+      color: #f5f7fb;
+      background: rgba(255,255,255,.055);
+      box-shadow: none;
+    }
+
+    .nav-button.active {
+      color: #11141b;
+      background: #edf0f4;
+      box-shadow: 0 8px 24px rgba(0,0,0,.24);
+    }
+
+    .nav-button.active:hover {
+      background: #fff;
+      color: #090b10;
+    }
+
+    /* =========================
+       PAGE SWITCHING
+       ========================= */
+
+    .tab-page {
+      display: none;
+    }
+
+    .tab-page.active {
+      display: block;
+      animation: pageIn .35s ease both;
+    }
+
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       FORM CARD
+       ========================= */
+
+    .card {
       padding: 32px;
       border: 1px solid rgba(255,255,255,.105);
       border-radius: 24px;
-      background: rgba(16,19,27,.78);
-      box-shadow: 0 25px 80px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.045);
+      background: rgba(16,19,27,.80);
+      box-shadow:
+        0 25px 80px rgba(0,0,0,.40),
+        inset 0 1px rgba(255,255,255,.045);
       backdrop-filter: blur(20px);
-      animation: fadeUp .8s .1s ease both;
     }
 
     .question {
-      margin-bottom: 26px;
+      margin-bottom: 27px;
     }
 
-    label.question-title {
+    .question-title {
       display: block;
       margin-bottom: 10px;
       color: #eef1f6;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 650;
       line-height: 1.5;
     }
 
     .required {
-      color: #9ca8ba;
-      font-size: 11px;
-      font-weight: 500;
       margin-left: 5px;
+      color: #7e8796;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      text-transform: uppercase;
     }
 
     input[type="text"],
-    textarea,
-    select {
+    textarea {
       width: 100%;
-      border: 1px solid rgba(255,255,255,.10);
       outline: none;
+      border: 1px solid rgba(255,255,255,.10);
       border-radius: 12px;
       padding: 13px 14px;
-      color: #f3f5f9;
+      color: #f4f6fa;
       background: rgba(255,255,255,.045);
       font: inherit;
       font-size: 14px;
-      transition: border-color .2s ease, background .2s ease, box-shadow .2s ease, transform .2s ease;
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
     }
 
     textarea {
-      min-height: 105px;
+      min-height: 108px;
       resize: vertical;
       line-height: 1.55;
     }
 
-    input:focus, textarea:focus, select:focus {
-      border-color: rgba(183,194,211,.55);
-      background: rgba(255,255,255,.065);
-      box-shadow: 0 0 0 4px rgba(170,183,204,.08);
-      transform: translateY(-1px);
+    input::placeholder,
+    textarea::placeholder {
+      color: #687181;
     }
 
-    input::placeholder, textarea::placeholder { color: #697281; }
+    input:focus,
+    textarea:focus {
+      transform: translateY(-1px);
+      border-color: rgba(190,200,215,.50);
+      background: rgba(255,255,255,.065);
+      box-shadow: 0 0 0 4px rgba(180,192,211,.075);
+    }
+
+    .input-error {
+      border-color: rgba(255,100,100,.65) !important;
+      box-shadow: 0 0 0 4px rgba(255,80,80,.06) !important;
+    }
+
+    .hint {
+      margin-top: 8px;
+      color: #707987;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       CHARACTER COUNTERS
+       ========================= */
+
+    .textarea-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 6px;
+    }
+
+    .counter {
+      color: #606a79;
+      font-size: 10px;
+      transition: color .2s ease;
+    }
+
+    .counter.near-limit {
+      color: #b8a97b;
+    }
+
+    .counter.at-limit {
+      color: #d88787;
+    }
+
+    /* =========================
+       RADIO OPTIONS
+       ========================= */
 
     .options {
       display: grid;
@@ -220,8 +401,8 @@
       cursor: pointer;
       border: 1px solid rgba(255,255,255,.085);
       border-radius: 12px;
+      color: #bdc4cf;
       background: rgba(255,255,255,.032);
-      color: #bfc5d0;
       font-size: 13px;
       transition: .2s ease;
     }
@@ -238,24 +419,27 @@
     }
 
     .option label:hover {
-      border-color: rgba(255,255,255,.20);
-      background: rgba(255,255,255,.055);
       transform: translateX(3px);
-      color: #edf0f5;
+      border-color: rgba(255,255,255,.19);
+      color: #eef1f6;
+      background: rgba(255,255,255,.055);
     }
 
     .option input:checked + label {
       border-color: rgba(210,218,230,.35);
-      background: rgba(220,228,240,.075);
       color: #fff;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.025);
+      background: rgba(220,228,240,.075);
     }
 
     .option input:checked + label::before {
-      border-color: #dce2eb;
-      background: #dce2eb;
+      border-color: #e0e5ed;
+      background: #e0e5ed;
       box-shadow: inset 0 0 0 4px #151820;
     }
+
+    /* =========================
+       RATING
+       ========================= */
 
     .rating {
       display: grid;
@@ -276,134 +460,160 @@
       cursor: pointer;
       border: 1px solid rgba(255,255,255,.09);
       border-radius: 10px;
-      background: rgba(255,255,255,.035);
       color: #9ca4b2;
-      font-weight: 600;
+      background: rgba(255,255,255,.035);
       font-size: 13px;
+      font-weight: 650;
       transition: .2s ease;
     }
 
     .rating label:hover {
       transform: translateY(-3px);
-      border-color: rgba(255,255,255,.25);
+      border-color: rgba(255,255,255,.24);
       color: #fff;
       background: rgba(255,255,255,.07);
     }
 
     .rating input:checked + label {
-      background: #e8ebf0;
-      color: #10131a;
-      border-color: #fff;
       transform: translateY(-2px);
+      color: #10131a;
+      background: #e8ebf0;
+      border-color: #fff;
       box-shadow: 0 8px 22px rgba(255,255,255,.08);
     }
 
-    .rating-note {
-      margin-top: 9px;
-      color: #737c8b;
-      font-size: 11px;
-      line-height: 1.5;
+    .rating-display {
+      margin-top: 10px;
+      min-height: 20px;
+      color: #cbd1db;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 650;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: .2s ease;
     }
 
+    .rating-display.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       SUBMIT AREA
+       ========================= */
+
     .submit-wrap {
+      display: grid;
+      gap: 10px;
       margin-top: 34px;
       padding-top: 25px;
       border-top: 1px solid rgba(255,255,255,.07);
     }
 
-    button {
+    #submitButton,
+    #clearButton {
       width: 100%;
-      border: 0;
       border-radius: 13px;
       padding: 15px 20px;
       cursor: pointer;
-      color: #0b0d12;
-      background: #edf0f4;
       font: inherit;
       font-size: 14px;
-      font-weight: 700;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      font-weight: 750;
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        background .18s ease,
+        opacity .18s ease;
     }
 
-    button:hover {
+    #submitButton {
+      border: 0;
+      color: #0b0d12;
+      background: #edf0f4;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+
+    #submitButton:hover {
       transform: translateY(-3px);
       background: #fff;
       box-shadow: 0 17px 38px rgba(0,0,0,.35);
     }
 
-    button:active {
+    #submitButton:active {
       transform: translateY(0) scale(.985);
     }
 
-    button:disabled {
+    #submitButton:disabled {
       opacity: .65;
       cursor: wait;
       transform: none;
     }
 
-
-
-    .nav {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 0 auto 22px;
-      padding: 5px;
-      width: fit-content;
-      max-width: 100%;
+    #clearButton {
       border: 1px solid rgba(255,255,255,.09);
-      border-radius: 14px;
-      background: rgba(16,19,27,.72);
-      box-shadow: 0 12px 40px rgba(0,0,0,.2), inset 0 1px rgba(255,255,255,.04);
-      backdrop-filter: blur(16px);
-      animation: fadeUp .75s .05s ease both;
+      color: #9da6b5;
+      background: rgba(255,255,255,.035);
     }
 
-    .nav-button {
-      width: auto;
-      min-width: 145px;
-      padding: 11px 18px;
-      border: 1px solid transparent;
-      border-radius: 10px;
-      color: #929baa;
-      background: transparent;
-      box-shadow: none;
-      font-size: 12px;
-      font-weight: 600;
+    #clearButton:hover {
+      transform: translateY(-2px);
+      color: #fff;
+      background: rgba(255,255,255,.065);
+      border-color: rgba(255,255,255,.16);
     }
 
-    .nav-button:hover {
-      color: #f5f7fb;
-      background: rgba(255,255,255,.055);
-      box-shadow: none;
-      transform: translateY(-1px);
+    #clearButton:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      transform: none;
     }
 
-    .nav-button.active {
-      color: #10131a;
-      background: #edf0f4;
-      box-shadow: 0 7px 20px rgba(0,0,0,.2);
+    .save-status {
+      min-height: 15px;
+      color: #626c7b;
+      text-align: center;
+      font-size: 10px;
     }
 
-    .page-section {
+    /* =========================
+       SUCCESS
+       ========================= */
+
+    .success {
       display: none;
-      animation: pageIn .35s ease both;
+      text-align: center;
+      padding: 50px 20px;
     }
 
-    .page-section.active {
-      display: block;
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      font-size: 27px;
     }
 
-    .team-card {
-      position: relative;
-      padding: 32px;
-      border: 1px solid rgba(255,255,255,.105);
-      border-radius: 24px;
-      background: rgba(16,19,27,.78);
-      box-shadow: 0 25px 80px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.045);
-      backdrop-filter: blur(20px);
+    .success h2 {
+      margin: 0 0 10px;
+      font-size: 25px;
+      letter-spacing: -.6px;
     }
+
+    .success p {
+      margin: 0;
+      color: #aeb5c2;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       TEAM PAGE
+       ========================= */
 
     .team-header {
       margin-bottom: 25px;
@@ -411,7 +621,7 @@
 
     .team-header h2 {
       margin: 0 0 8px;
-      font-size: 24px;
+      font-size: 25px;
       letter-spacing: -.7px;
     }
 
@@ -436,7 +646,11 @@
       border: 1px solid rgba(255,255,255,.085);
       border-radius: 14px;
       background: rgba(255,255,255,.032);
-      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
     }
 
     .team-member:hover {
@@ -452,26 +666,27 @@
       flex: 0 0 42px;
       display: grid;
       place-items: center;
-      border-radius: 12px;
-      background: rgba(255,255,255,.07);
       border: 1px solid rgba(255,255,255,.09);
+      border-radius: 12px;
       color: #e9edf4;
+      background: rgba(255,255,255,.07);
       font-size: 15px;
       font-weight: 700;
     }
 
     .team-info {
       min-width: 0;
+      flex: 1;
     }
 
     .team-username {
       display: block;
       overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
       color: #f1f3f7;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 650;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .team-role {
@@ -479,81 +694,147 @@
       margin-top: 5px;
       color: #8f99a9;
       font-size: 10px;
-      font-weight: 700;
+      font-weight: 750;
       letter-spacing: .5px;
     }
 
-    @keyframes pageIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+    .team-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 5px;
+      color: #727c8b;
+      font-size: 10px;
     }
 
-    @media (max-width: 600px) {
-      .nav { width: 100%; }
-      .nav-button { min-width: 0; flex: 1; padding: 11px 10px; }
-      .team-card { padding: 22px 17px; }
-      .team-grid { grid-template-columns: 1fr; }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #727c8b;
+      box-shadow: 0 0 8px rgba(255,255,255,.08);
+    }
+
+    .status-dot.online {
+      background: #aeb7c5;
+      box-shadow: 0 0 9px rgba(220,225,235,.28);
+    }
+
+    .status-dot.away {
+      background: #8d8879;
+    }
+
+    .status-dot.offline {
+      background: #555e6d;
     }
 
     .footer {
-      text-align: center;
-      color: #596170;
-      font-size: 11px;
       margin-top: 22px;
-      animation: fadeUp .9s .2s ease both;
-    }
-
-    .success {
-      display: none;
+      color: #596170;
       text-align: center;
-      padding: 50px 20px;
-      animation: successIn .5s ease both;
+      font-size: 11px;
     }
 
-    .success-icon {
-      width: 64px;
-      height: 64px;
-      margin: 0 auto 20px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.15);
-      background: rgba(255,255,255,.07);
-      font-size: 27px;
+    /* =========================
+       VALIDATION MESSAGE
+       ========================= */
+
+    .validation-message {
+      display: none;
+      margin-top: 12px;
+      padding: 11px 13px;
+      border: 1px solid rgba(255,110,110,.18);
+      border-radius: 10px;
+      color: #c9a5a5;
+      background: rgba(255,80,80,.045);
+      font-size: 11px;
+      line-height: 1.5;
     }
 
-    .success h2 {
-      margin: 0 0 10px;
-      font-size: 25px;
-    }
-
-    .success p {
-      margin: 0;
-      color: #aeb5c2;
-      font-size: 14px;
-      line-height: 1.6;
+    .validation-message.show {
+      display: block;
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    @keyframes successIn {
-      from { opacity: 0; transform: scale(.97) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
+    /* =========================
+       MOBILE
+       ========================= */
 
     @media (max-width: 600px) {
-      .page { width: min(100% - 20px, 760px); padding: 38px 0 50px; }
-      .form-card { padding: 22px 17px; border-radius: 19px; }
-      .rating { gap: 4px; }
-      .rating label { height: 39px; font-size: 12px; border-radius: 8px; }
-      .hero { margin-bottom: 20px; }
+      .page {
+        width: min(100% - 20px, 760px);
+        padding: 38px 0 50px;
+      }
+
+      .nav {
+        width: 100%;
+      }
+
+      .nav-button {
+        min-width: 0;
+        flex: 1;
+        padding: 11px 8px;
+      }
+
+      .card {
+        padding: 22px 17px;
+        border-radius: 19px;
+      }
+
+      .rating {
+        gap: 4px;
+      }
+
+      .rating label {
+        height: 39px;
+        border-radius: 8px;
+        font-size: 12px;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .question-title {
+        font-size: 13px;
+      }
+
+      input[type="text"],
+      textarea {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .nav-button {
+        font-size: 11px;
+      }
+
+      .rating {
+        gap: 3px;
+      }
+
+      .rating label {
+        height: 36px;
+        font-size: 11px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
@@ -561,7 +842,9 @@
       }
     }
   </style>
+
 </head>
+
 <body>
 
   <div class="background" aria-hidden="true">
@@ -572,166 +855,339 @@
   </div>
 
   <main class="page">
-    <header class="hero">
-      <div class="shield">🛡️</div>
-      <h1>Slime RNG Admin Application</h1>
-      <p class="intro">
-        Fill out the application appropriately.
-        <strong>Make sure you like Slime RNG on Scratch and follow gibbkayyy!</strong>
+
+```
+<header class="hero">
+  <div class="shield">🛡️</div>
+
+  <h1 id="pageTitle">Slime RNG Admin Application</h1>
+
+  <p class="intro" id="pageIntro">
+    Fill out the application appropriately.
+    <strong>Make sure you like Slime RNG on Scratch and follow gibbkayyy!</strong>
+  </p>
+</header>
+
+<nav class="nav" aria-label="Pages">
+  <button class="nav-button active" type="button" data-page="application">
+    📝 Application
+  </button>
+
+  <button class="nav-button" type="button" data-page="team">
+    🛡️ Slime RNG Team
+  </button>
+</nav>
+
+<!-- =========================
+     PAGE 1 — APPLICATION
+     ========================= -->
+
+<section class="tab-page active" id="application">
+
+  <div class="card">
+
+    <form
+      id="adminForm"
+      action="https://formspree.io/f/moeqowwq"
+      method="POST"
+      novalidate
+    >
+
+      <div class="question">
+        <label class="question-title" for="username">
+          What is your Scratch Username?
+          <span class="required">Required</span>
+        </label>
+
+        <input
+          id="username"
+          name="Scratch Username"
+          type="text"
+          placeholder="Enter your Scratch username"
+          autocomplete="off"
+          maxlength="50"
+          required
+        >
+
+        <div class="hint">
+          Make sure it is correct, as you will be contacted via your Scratch profile.
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="question-title">
+          Are you active on Scratch?
+          <span class="required">Required</span>
+        </label>
+
+        <div class="options">
+          <div class="option">
+            <input id="activeYes" name="Active on Scratch" type="radio" value="Yes" required>
+            <label for="activeYes">Yes</label>
+          </div>
+
+          <div class="option">
+            <input id="activeNo" name="Active on Scratch" type="radio" value="No">
+            <label for="activeNo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="question-title" for="hours">
+          How many hours a week do you spend on Scratch?
+          <span class="required">Required</span>
+        </label>
+
+        <input
+          id="hours"
+          name="Hours per week on Scratch"
+          type="text"
+          placeholder="e.g. 5 hours"
+          maxlength="50"
+          required
+        >
+      </div>
+
+      <div class="question">
+        <label class="question-title" for="why">
+          Why do you want to be an Admin For Slime RNG?
+          <span class="required">Required</span>
+        </label>
+
+        <textarea
+          id="why"
+          name="Why they want to be an admin"
+          placeholder="Tell us why you want to become an admin..."
+          maxlength="1000"
+          required
+        ></textarea>
+
+        <div class="textarea-footer">
+          <span class="counter" id="whyCounter">0 / 1000</span>
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="question-title">
+          Are you a Scratcher?
+          <span class="required">Required</span>
+        </label>
+
+        <div class="options">
+          <div class="option">
+            <input id="scratcherYes" name="Are you a Scratcher" type="radio" value="Yes" required>
+            <label for="scratcherYes">Yes</label>
+          </div>
+
+          <div class="option">
+            <input id="scratcherNo" name="Are you a Scratcher" type="radio" value="No">
+            <label for="scratcherNo">No</label>
+          </div>
+        </div>
+
+        <div class="hint">
+          You can check this on your Scratch profile.
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="question-title" for="questions">
+          Put in any questions you have
+          <span class="required">Optional</span>
+        </label>
+
+        <textarea
+          id="questions"
+          name="Applicant Questions"
+          placeholder="Anything you want to ask?"
+          maxlength="500"
+        ></textarea>
+
+        <div class="textarea-footer">
+          <span class="counter" id="questionsCounter">0 / 500</span>
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="question-title">
+          Rate Slime RNG out of 10 to help improve the game!
+          <span class="required">Required</span>
+        </label>
+
+        <div class="rating">
+          <input id="rating1" name="Slime RNG Rating" type="radio" value="1" required>
+          <label for="rating1">1</label>
+
+          <input id="rating2" name="Slime RNG Rating" type="radio" value="2">
+          <label for="rating2">2</label>
+
+          <input id="rating3" name="Slime RNG Rating" type="radio" value="3">
+          <label for="rating3">3</label>
+
+          <input id="rating4" name="Slime RNG Rating" type="radio" value="4">
+          <label for="rating4">4</label>
+
+          <input id="rating5" name="Slime RNG Rating" type="radio" value="5">
+          <label for="rating5">5</label>
+
+          <input id="rating6" name="Slime RNG Rating" type="radio" value="6">
+          <label for="rating6">6</label>
+
+          <input id="rating7" name="Slime RNG Rating" type="radio" value="7">
+          <label for="rating7">7</label>
+
+          <input id="rating8" name="Slime RNG Rating" type="radio" value="8">
+          <label for="rating8">8</label>
+
+          <input id="rating9" name="Slime RNG Rating" type="radio" value="9">
+          <label for="rating9">9</label>
+
+          <input id="rating10" name="Slime RNG Rating" type="radio" value="10">
+          <label for="rating10">10</label>
+        </div>
+
+        <div class="rating-display" id="ratingDisplay"></div>
+
+        <div class="hint">
+          This is anonymous and will not affect if you get Admin or not!
+          Give a genuine rating of the game!
+        </div>
+      </div>
+
+      <div class="question">
+        <label class="question-title" for="improve">
+          Give reasons on how Slime RNG could Improve
+          <span class="required">Optional</span>
+        </label>
+
+        <textarea
+          id="improve"
+          name="How Slime RNG could improve"
+          placeholder="Tell us what you think could be improved..."
+          maxlength="1000"
+        ></textarea>
+
+        <div class="textarea-footer">
+          <span class="counter" id="improveCounter">0 / 1000</span>
+        </div>
+      </div>
+
+      <div class="validation-message" id="validationMessage">
+        Please complete all required questions before submitting.
+      </div>
+
+      <div class="submit-wrap">
+
+        <button id="submitButton" type="submit">
+          Submit Application
+        </button>
+
+        <button id="clearButton" type="button">
+          Clear Form
+        </button>
+
+        <div class="save-status" id="saveStatus">
+          Draft automatically saves on this device.
+        </div>
+
+      </div>
+
+    </form>
+
+    <div class="success" id="successMessage">
+      <div class="success-icon">✓</div>
+      <h2>Form Submitted!</h2>
+      <p>
+        I will contact you via your Scratch profile as soon as I can!
       </p>
-    </header>
+    </div>
 
+  </div>
 
+</section>
 
-    <nav class="nav" aria-label="Application pages">
-      <button class="nav-button active" type="button" data-page="application">📝 Application</button>
-      <button class="nav-button" type="button" data-page="team">🛡️ Slime RNG Team</button>
-    </nav>
+<!-- =========================
+     PAGE 2 — TEAM
+     ========================= -->
 
-    <section class="page-section active" id="application">
-      <div class="form-card">
-      <form id="adminForm" action="https://formspree.io/f/moeqowwq" method="POST">
+<section class="tab-page" id="team">
 
-        <div class="question">
-          <label class="question-title" for="username">
-            What is your Scratch Username? <span class="required">Required</span>
-          </label>
-          <input id="username" name="Scratch Username" type="text"
-                 placeholder="Enter your Scratch username" autocomplete="off" required>
-          <div class="rating-note">Make sure it is correct, as you will be contacted via Scratch.</div>
-        </div>
+  <div class="card">
 
-        <div class="question">
-          <label class="question-title">Are you active on Scratch? <span class="required">Required</span></label>
-          <div class="options">
-            <div class="option">
-              <input id="active-yes" name="Active on Scratch" type="radio" value="Yes" required>
-              <label for="active-yes">Yes</label>
-            </div>
-            <div class="option">
-              <input id="active-no" name="Active on Scratch" type="radio" value="No">
-              <label for="active-no">No</label>
-            </div>
-          </div>
-        </div>
+    <div class="team-header">
+      <h2>Slime RNG Team</h2>
+      <p>
+        Meet the people helping run, moderate, and improve Slime RNG.
+      </p>
+    </div>
 
-        <div class="question">
-          <label class="question-title" for="hours">
-            How many hours a week do you spend on Scratch? <span class="required">Required</span>
-          </label>
-          <input id="hours" name="Hours per week on Scratch" type="text"
-                 placeholder="e.g. 5 hours" required>
-        </div>
+    <div class="team-grid" id="teamGrid"></div>
 
-        <div class="question">
-          <label class="question-title" for="why">
-            Why do you want to be an Admin For Slime RNG? <span class="required">Required</span>
-          </label>
-          <textarea id="why" name="Why they want to be an admin"
-                    placeholder="Tell us why you would be a good admin..." required></textarea>
-        </div>
+  </div>
 
-        <div class="question">
-          <label class="question-title">Are you a Scratcher? <span class="required">Required</span></label>
-          <div class="options">
-            <div class="option">
-              <input id="scratcher-yes" name="Are you a Scratcher" type="radio" value="Yes" required>
-              <label for="scratcher-yes">Yes</label>
-            </div>
-            <div class="option">
-              <input id="scratcher-no" name="Are you a Scratcher" type="radio" value="No">
-              <label for="scratcher-no">No</label>
-            </div>
-          </div>
-          <div class="rating-note">You can check this on your Scratch profile.</div>
-        </div>
+</section>
 
-        <div class="question">
-          <label class="question-title" for="questions">
-            Put in any questions you have <span class="required">Optional</span>
-          </label>
-          <textarea id="questions" name="Applicant Questions"
-                    placeholder="Anything you want to ask?"></textarea>
-        </div>
+<footer class="footer">
+  Slime RNG • Admin Applications
+</footer>
+```
 
-        <div class="question">
-          <label class="question-title">
-            Rate Slime RNG out of 10 to help improve the game!
-            <span class="required">Required</span>
-          </label>
-
-          <div class="rating">
-            <input id="r1" name="Slime RNG Rating" type="radio" value="1" required><label for="r1">1</label>
-            <input id="r2" name="Slime RNG Rating" type="radio" value="2"><label for="r2">2</label>
-            <input id="r3" name="Slime RNG Rating" type="radio" value="3"><label for="r3">3</label>
-            <input id="r4" name="Slime RNG Rating" type="radio" value="4"><label for="r4">4</label>
-            <input id="r5" name="Slime RNG Rating" type="radio" value="5"><label for="r5">5</label>
-            <input id="r6" name="Slime RNG Rating" type="radio" value="6"><label for="r6">6</label>
-            <input id="r7" name="Slime RNG Rating" type="radio" value="7"><label for="r7">7</label>
-            <input id="r8" name="Slime RNG Rating" type="radio" value="8"><label for="r8">8</label>
-            <input id="r9" name="Slime RNG Rating" type="radio" value="9"><label for="r9">9</label>
-            <input id="r10" name="Slime RNG Rating" type="radio" value="10"><label for="r10">10</label>
-          </div>
-
-          <div class="rating-note">
-            This is anonymous and will not affect if you get Admin or not! Give a genuine rating of the game!
-          </div>
-        </div>
-
-        <div class="question">
-          <label class="question-title" for="improve">
-            Give reasons on how Slime RNG could Improve <span class="required">Optional</span>
-          </label>
-          <textarea id="improve" name="How Slime RNG could improve"
-                    placeholder="Tell us what you think could be improved..."></textarea>
-        </div>
-
-        <div class="submit-wrap">
-          <button id="submitButton" type="submit">Submit Application</button>
-        </div>
-      </form>
-
-      <div class="success" id="successMessage">
-        <div class="success-icon">✓</div>
-        <h2>Form Submitted!</h2>
-        <p>I will contact you via your Scratch profile as soon as I can!</p>
-      </div>
-      </div>
-    </section>
-
-    <section class="page-section" id="team">
-      <div class="team-card">
-        <div class="team-header">
-          <h2>Slime RNG Team</h2>
-          <p>Meet the people helping run and improve Slime RNG.</p>
-        </div>
-        <div class="team-grid" id="teamGrid"></div>
-      </div>
-    </section>
-
-    <div class="footer">Slime RNG • Admin Applications</div>
   </main>
 
   <script>
+    /* =====================================================
+       SLIME RNG TEAM
+       =====================================================
 
+       EASY EDITING:
 
-    /*
-      ==============================
-      SLIME RNG TEAM
-      ==============================
-      To add, remove, or edit a team member, ONLY change this list.
-      Example:
-      { username: "ExampleUser", role: "ADMIN" }
-    */
+       Add a team member like this:
+
+       {
+         username: "ExampleUser",
+         role: "ADMIN",
+         status: "ONLINE"
+       }
+
+       Status options:
+       ONLINE
+       AWAY
+       OFFLINE
+
+       You only need to edit THIS list.
+       ===================================================== */
+
     const teamMembers = [
-      { username: "gibbkayyy", role: "OWNER" },
-      { username: "qcwojt", role: "LEAD ADMIN" },
-      { username: "GibbyGamerrr", role: "ADMIN" },
-      { username: "Moralate", role: "ADMIN" },
-      { username: "Kobieg26", role: "ADMIN" }
+      {
+        username: "gibbkayyy",
+        role: "OWNER",
+        status: "ONLINE"
+      },
+      {
+        username: "qcwojt",
+        role: "LEAD ADMIN",
+        status: "ONLINE"
+      },
+      {
+        username: "Moralate",
+        role: "ADMIN",
+        status: "ONLINE"
+      },
+      {
+        username: "Kobieg26",
+        role: "ADMIN",
+        status: "ONLINE"
+      }
     ];
 
     const teamGrid = document.getElementById("teamGrid");
+
+    const statusLabels = {
+      ONLINE: "Online",
+      AWAY: "Away",
+      OFFLINE: "Offline"
+    };
 
     teamMembers.forEach(member => {
       const card = document.createElement("div");
@@ -752,63 +1208,562 @@
       role.className = "team-role";
       role.textContent = `[${member.role}]`;
 
+      const status = document.createElement("div");
+      status.className = "team-status";
+
+      const dot = document.createElement("span");
+      dot.className = "status-dot " + member.status.toLowerCase();
+
+      const statusText = document.createElement("span");
+      statusText.textContent =
+        statusLabels[member.status] || member.status;
+
+      status.appendChild(dot);
+      status.appendChild(statusText);
+
       info.appendChild(username);
       info.appendChild(role);
+      info.appendChild(status);
+
       card.appendChild(avatar);
       card.appendChild(info);
+
       teamGrid.appendChild(card);
     });
 
-    // Two-page navigation without needing separate HTML files.
+
+    /* =====================================================
+       PAGE SWITCHING
+       ===================================================== */
+
     const navButtons = document.querySelectorAll(".nav-button");
-    const pages = document.querySelectorAll(".page-section");
+    const pages = document.querySelectorAll(".tab-page");
+
+    const pageTitle = document.getElementById("pageTitle");
+    const pageIntro = document.getElementById("pageIntro");
 
     navButtons.forEach(button => {
       button.addEventListener("click", () => {
         const target = button.dataset.page;
 
-        navButtons.forEach(btn => btn.classList.toggle("active", btn === button));
-        pages.forEach(page => page.classList.toggle("active", page.id === target));
+        navButtons.forEach(btn => {
+          btn.classList.toggle("active", btn === button);
+        });
 
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        pages.forEach(page => {
+          page.classList.toggle("active", page.id === target);
+        });
+
+        if (target === "team") {
+          pageTitle.textContent = "Slime RNG Team";
+
+          pageIntro.innerHTML =
+            'Meet the people helping run, moderate, and improve <strong>Slime RNG</strong>.';
+        } else {
+          pageTitle.textContent = "Slime RNG Admin Application";
+
+          pageIntro.innerHTML =
+            'Fill out the application appropriately. <strong>Make sure you like Slime RNG on Scratch and follow gibbkayyy!</strong>';
+        }
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       });
     });
 
-    const form = document.getElementById("adminForm");
-    const button = document.getElementById("submitButton");
-    const success = document.getElementById("successMessage");
 
-    form.addEventListener("submit", async (event) => {
+    /* =====================================================
+       FORM ELEMENTS
+       ===================================================== */
+
+    const form = document.getElementById("adminForm");
+    const submitButton = document.getElementById("submitButton");
+    const clearButton = document.getElementById("clearButton");
+    const successMessage = document.getElementById("successMessage");
+    const validationMessage = document.getElementById("validationMessage");
+    const saveStatus = document.getElementById("saveStatus");
+    const ratingDisplay = document.getElementById("ratingDisplay");
+
+    const usernameInput = document.getElementById("username");
+    const hoursInput = document.getElementById("hours");
+
+    const why = document.getElementById("why");
+    const questions = document.getElementById("questions");
+    const improve = document.getElementById("improve");
+
+    const STORAGE_KEY = "slimeRNGAdminApplicationDraft";
+    const SUBMITTED_KEY = "slimeRNGAdminApplicationSubmitted";
+
+    let hasUnsavedChanges = false;
+    let isSubmitting = false;
+
+
+    /* =====================================================
+       DUPLICATE SUBMISSION PROTECTION
+       ===================================================== */
+
+    function hasAlreadySubmitted() {
+      return localStorage.getItem(SUBMITTED_KEY) === "true";
+    }
+
+    function showDuplicateMessage() {
+      form.style.display = "none";
+      successMessage.style.display = "block";
+
+      successMessage.querySelector("h2").textContent =
+        "Application Already Submitted";
+
+      successMessage.querySelector("p").textContent =
+        "An application has already been submitted from this browser.";
+    }
+
+    if (hasAlreadySubmitted()) {
+      showDuplicateMessage();
+    }
+
+
+    /* =====================================================
+       CHARACTER COUNTERS
+       ===================================================== */
+
+    function updateCounter(textarea, counter, max) {
+      const length = textarea.value.length;
+
+      counter.textContent = `${length} / ${max}`;
+
+      counter.classList.remove("near-limit", "at-limit");
+
+      if (length >= max) {
+        counter.classList.add("at-limit");
+      } else if (length >= max * 0.85) {
+        counter.classList.add("near-limit");
+      }
+    }
+
+    why.addEventListener("input", () => {
+      updateCounter(
+        why,
+        document.getElementById("whyCounter"),
+        1000
+      );
+    });
+
+    questions.addEventListener("input", () => {
+      updateCounter(
+        questions,
+        document.getElementById("questionsCounter"),
+        500
+      );
+    });
+
+    improve.addEventListener("input", () => {
+      updateCounter(
+        improve,
+        document.getElementById("improveCounter"),
+        1000
+      );
+    });
+
+
+    /* =====================================================
+       LIVE RATING
+       ===================================================== */
+
+    const ratingLabels = {
+      1: "1/10 — Very poor",
+      2: "2/10 — Poor",
+      3: "3/10 — Needs improvement",
+      4: "4/10 — Below average",
+      5: "5/10 — Average",
+      6: "6/10 — Decent",
+      7: "7/10 — Good",
+      8: "8/10 — Very good",
+      9: "9/10 — Great",
+      10: "10/10 — Excellent"
+    };
+
+    document.querySelectorAll('input[name="Slime RNG Rating"]')
+      .forEach(input => {
+        input.addEventListener("change", () => {
+          ratingDisplay.textContent =
+            ratingLabels[input.value];
+
+          ratingDisplay.classList.add("visible");
+        });
+      });
+
+
+    /* =====================================================
+       AUTO-SAVE
+       ===================================================== */
+
+    function saveDraft() {
+      if (isSubmitting) return;
+
+      const data = {
+        username: usernameInput.value,
+        active: document.querySelector(
+          'input[name="Active on Scratch"]:checked'
+        )?.value || "",
+
+        hours: hoursInput.value,
+        why: why.value,
+
+        scratcher: document.querySelector(
+          'input[name="Are you a Scratcher"]:checked'
+        )?.value || "",
+
+        questions: questions.value,
+
+        rating: document.querySelector(
+          'input[name="Slime RNG Rating"]:checked'
+        )?.value || "",
+
+        improve: improve.value
+      };
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+      );
+
+      hasUnsavedChanges = true;
+
+      saveStatus.textContent =
+        "Draft saved on this device.";
+    }
+
+
+    function loadDraft() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+
+      if (!saved) return;
+
+      try {
+        const data = JSON.parse(saved);
+
+        usernameInput.value = data.username || "";
+        hoursInput.value = data.hours || "";
+        why.value = data.why || "";
+        questions.value = data.questions || "";
+        improve.value = data.improve || "";
+
+        if (data.active) {
+          const activeInput = document.querySelector(
+            `input[name="Active on Scratch"][value="${data.active}"]`
+          );
+
+          if (activeInput) {
+            activeInput.checked = true;
+          }
+        }
+
+        if (data.scratcher) {
+          const scratcherInput = document.querySelector(
+            `input[name="Are you a Scratcher"][value="${data.scratcher}"]`
+          );
+
+          if (scratcherInput) {
+            scratcherInput.checked = true;
+          }
+        }
+
+        if (data.rating) {
+          const ratingInput = document.querySelector(
+            `input[name="Slime RNG Rating"][value="${data.rating}"]`
+          );
+
+          if (ratingInput) {
+            ratingInput.checked = true;
+
+            ratingDisplay.textContent =
+              ratingLabels[data.rating];
+
+            ratingDisplay.classList.add("visible");
+          }
+        }
+
+        updateCounter(
+          why,
+          document.getElementById("whyCounter"),
+          1000
+        );
+
+        updateCounter(
+          questions,
+          document.getElementById("questionsCounter"),
+          500
+        );
+
+        updateCounter(
+          improve,
+          document.getElementById("improveCounter"),
+          1000
+        );
+
+        saveStatus.textContent =
+          "Saved draft restored.";
+
+      } catch (error) {
+        console.warn("Could not restore saved draft.", error);
+      }
+    }
+
+
+    /* Save whenever something changes */
+
+    form.addEventListener("input", () => {
+      saveDraft();
+    });
+
+    form.addEventListener("change", () => {
+      saveDraft();
+    });
+
+
+    /* Restore previous draft */
+
+    loadDraft();
+
+
+    /* =====================================================
+       CLEAR FORM
+       ===================================================== */
+
+    clearButton.addEventListener("click", () => {
+
+      if (isSubmitting) return;
+
+      const confirmed = confirm(
+        "Are you sure you want to clear your entire application? Your saved draft will also be deleted."
+      );
+
+      if (!confirmed) return;
+
+      form.reset();
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      hasUnsavedChanges = false;
+
+      validationMessage.classList.remove("show");
+
+      ratingDisplay.textContent = "";
+      ratingDisplay.classList.remove("visible");
+
+      updateCounter(
+        why,
+        document.getElementById("whyCounter"),
+        1000
+      );
+
+      updateCounter(
+        questions,
+        document.getElementById("questionsCounter"),
+        500
+      );
+
+      updateCounter(
+        improve,
+        document.getElementById("improveCounter"),
+        1000
+      );
+
+      document
+        .querySelectorAll(".input-error")
+        .forEach(element => {
+          element.classList.remove("input-error");
+        });
+
+      saveStatus.textContent =
+        "Form cleared.";
+    });
+
+
+    /* =====================================================
+       FIELD VALIDATION
+       ===================================================== */
+
+    function validateForm() {
+      let valid = true;
+
+      document
+        .querySelectorAll(".input-error")
+        .forEach(element => {
+          element.classList.remove("input-error");
+        });
+
+      validationMessage.classList.remove("show");
+
+      if (usernameInput.value.trim().length < 2) {
+        usernameInput.classList.add("input-error");
+        valid = false;
+      }
+
+      if (hoursInput.value.trim().length < 1) {
+        hoursInput.classList.add("input-error");
+        valid = false;
+      }
+
+      if (why.value.trim().length < 10) {
+        why.classList.add("input-error");
+        valid = false;
+      }
+
+      const activeSelected =
+        document.querySelector(
+          'input[name="Active on Scratch"]:checked'
+        );
+
+      if (!activeSelected) {
+        valid = false;
+      }
+
+      const scratcherSelected =
+        document.querySelector(
+          'input[name="Are you a Scratcher"]:checked'
+        );
+
+      if (!scratcherSelected) {
+        valid = false;
+      }
+
+      const ratingSelected =
+        document.querySelector(
+          'input[name="Slime RNG Rating"]:checked'
+        );
+
+      if (!ratingSelected) {
+        valid = false;
+      }
+
+      if (!valid) {
+        validationMessage.textContent =
+          "Please complete all required questions. Your admin reason must be at least 10 characters.";
+
+        validationMessage.classList.add("show");
+      }
+
+      return valid;
+    }
+
+
+    /* =====================================================
+       UNSAVED CHANGES WARNING
+       ===================================================== */
+
+    window.addEventListener("beforeunload", event => {
+
+      if (
+        hasUnsavedChanges &&
+        !isSubmitting &&
+        !hasAlreadySubmitted()
+      ) {
+        event.preventDefault();
+        event.returnValue = "";
+      }
+
+    });
+
+
+    /* =====================================================
+       FORMSPREE SUBMISSION
+       ===================================================== */
+
+    form.addEventListener("submit", async event => {
+
       event.preventDefault();
 
-      if (!form.checkValidity()) {
+      if (isSubmitting) return;
+
+      if (hasAlreadySubmitted()) {
+        showDuplicateMessage();
+        return;
+      }
+
+      if (!validateForm()) {
         form.reportValidity();
         return;
       }
 
-      button.disabled = true;
-      button.textContent = "Submitting...";
+      isSubmitting = true;
+
+      submitButton.disabled = true;
+      clearButton.disabled = true;
+
+      submitButton.textContent =
+        "Submitting Application...";
+
+      saveStatus.textContent =
+        "Sending your application...";
 
       try {
+
         const response = await fetch(form.action, {
           method: "POST",
           body: new FormData(form),
-          headers: { "Accept": "application/json" }
+          headers: {
+            "Accept": "application/json"
+          }
         });
 
-        if (response.ok) {
-          form.style.display = "none";
-          success.style.display = "block";
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
+        if (!response.ok) {
           throw new Error("Submission failed");
         }
+
+        /* Mark this browser as submitted */
+
+        localStorage.setItem(
+          SUBMITTED_KEY,
+          "true"
+        );
+
+        localStorage.removeItem(
+          STORAGE_KEY
+        );
+
+        hasUnsavedChanges = false;
+
+        form.style.display = "none";
+
+        successMessage.style.display = "block";
+
+        successMessage.querySelector("h2").textContent =
+          "Form Submitted!";
+
+        successMessage.querySelector("p").textContent =
+          "I will contact you via your Scratch profile as soon as I can!";
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
       } catch (error) {
-        button.disabled = false;
-        button.textContent = "Submit Application";
-        alert("Something went wrong while submitting the form. Please try again.");
+
+        console.error(error);
+
+        isSubmitting = false;
+
+        submitButton.disabled = false;
+        clearButton.disabled = false;
+
+        submitButton.textContent =
+          "Submit Application";
+
+        saveStatus.textContent =
+          "Your draft is still saved on this device.";
+
+        alert(
+          "Something went wrong while submitting the form. Please try again."
+        );
       }
+
     });
+
   </script>
+
 </body>
 </html>
