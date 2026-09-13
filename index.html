@@ -342,6 +342,159 @@
       transform: none;
     }
 
+
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 auto 22px;
+      padding: 5px;
+      width: fit-content;
+      max-width: 100%;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 14px;
+      background: rgba(16,19,27,.72);
+      box-shadow: 0 12px 40px rgba(0,0,0,.2), inset 0 1px rgba(255,255,255,.04);
+      backdrop-filter: blur(16px);
+      animation: fadeUp .75s .05s ease both;
+    }
+
+    .nav-button {
+      width: auto;
+      min-width: 145px;
+      padding: 11px 18px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      color: #929baa;
+      background: transparent;
+      box-shadow: none;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .nav-button:hover {
+      color: #f5f7fb;
+      background: rgba(255,255,255,.055);
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+
+    .nav-button.active {
+      color: #10131a;
+      background: #edf0f4;
+      box-shadow: 0 7px 20px rgba(0,0,0,.2);
+    }
+
+    .page-section {
+      display: none;
+      animation: pageIn .35s ease both;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    .team-card {
+      position: relative;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,.105);
+      border-radius: 24px;
+      background: rgba(16,19,27,.78);
+      box-shadow: 0 25px 80px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.045);
+      backdrop-filter: blur(20px);
+    }
+
+    .team-header {
+      margin-bottom: 25px;
+    }
+
+    .team-header h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: -.7px;
+    }
+
+    .team-header p {
+      margin: 0;
+      color: #929baa;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .team-member {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 15px;
+      border: 1px solid rgba(255,255,255,.085);
+      border-radius: 14px;
+      background: rgba(255,255,255,.032);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+
+    .team-member:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+
+    .team-avatar {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.09);
+      color: #e9edf4;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .team-info {
+      min-width: 0;
+    }
+
+    .team-username {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #f1f3f7;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .team-role {
+      display: inline-block;
+      margin-top: 5px;
+      color: #8f99a9;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .nav { width: 100%; }
+      .nav-button { min-width: 0; flex: 1; padding: 11px 10px; }
+      .team-card { padding: 22px 17px; }
+      .team-grid { grid-template-columns: 1fr; }
+    }
+
     .footer {
       text-align: center;
       color: #596170;
@@ -428,7 +581,15 @@
       </p>
     </header>
 
-    <section class="form-card">
+
+
+    <nav class="nav" aria-label="Application pages">
+      <button class="nav-button active" type="button" data-page="application">📝 Application</button>
+      <button class="nav-button" type="button" data-page="team">🛡️ Slime RNG Team</button>
+    </nav>
+
+    <section class="page-section active" id="application">
+      <div class="form-card">
       <form id="adminForm" action="https://formspree.io/f/moeqowwq" method="POST">
 
         <div class="question">
@@ -535,12 +696,84 @@
         <h2>Form Submitted!</h2>
         <p>I will contact you via your Scratch profile as soon as I can!</p>
       </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="team">
+      <div class="team-card">
+        <div class="team-header">
+          <h2>Slime RNG Team</h2>
+          <p>Meet the people helping run and improve Slime RNG.</p>
+        </div>
+        <div class="team-grid" id="teamGrid"></div>
+      </div>
     </section>
 
     <div class="footer">Slime RNG • Admin Applications</div>
   </main>
 
   <script>
+
+
+    /*
+      ==============================
+      SLIME RNG TEAM
+      ==============================
+      To add, remove, or edit a team member, ONLY change this list.
+      Example:
+      { username: "ExampleUser", role: "ADMIN" }
+    */
+    const teamMembers = [
+      { username: "gibbkayyy", role: "OWNER" },
+      { username: "qcwojt", role: "LEAD ADMIN" },
+      { username: "GibbyGamerrr", role: "ADMIN" },
+      { username: "Moralate", role: "ADMIN" },
+      { username: "Kobieg26", role: "ADMIN" }
+    ];
+
+    const teamGrid = document.getElementById("teamGrid");
+
+    teamMembers.forEach(member => {
+      const card = document.createElement("div");
+      card.className = "team-member";
+
+      const avatar = document.createElement("div");
+      avatar.className = "team-avatar";
+      avatar.textContent = member.username.charAt(0).toUpperCase();
+
+      const info = document.createElement("div");
+      info.className = "team-info";
+
+      const username = document.createElement("span");
+      username.className = "team-username";
+      username.textContent = member.username;
+
+      const role = document.createElement("span");
+      role.className = "team-role";
+      role.textContent = `[${member.role}]`;
+
+      info.appendChild(username);
+      info.appendChild(role);
+      card.appendChild(avatar);
+      card.appendChild(info);
+      teamGrid.appendChild(card);
+    });
+
+    // Two-page navigation without needing separate HTML files.
+    const navButtons = document.querySelectorAll(".nav-button");
+    const pages = document.querySelectorAll(".page-section");
+
+    navButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.page;
+
+        navButtons.forEach(btn => btn.classList.toggle("active", btn === button));
+        pages.forEach(page => page.classList.toggle("active", page.id === target));
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
     const form = document.getElementById("adminForm");
     const button = document.getElementById("submitButton");
     const success = document.getElementById("successMessage");
