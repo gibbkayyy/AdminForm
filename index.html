@@ -1173,14 +1173,6 @@
       }
     ];
 
-    const teamGrid = document.getElementById("teamGrid");
-
-    const statusLabels = {
-      ONLINE: "Online",
-      AWAY: "Away",
-      OFFLINE: "Offline"
-    };
-
     teamMembers.forEach(member => {
       const card = document.createElement("div");
       card.className = "team-member";
@@ -1198,24 +1190,15 @@
 
       const role = document.createElement("span");
       role.className = "team-role";
-      role.textContent = `[${member.role}]`;
-
-      const status = document.createElement("div");
-      status.className = "team-status";
-
-      const dot = document.createElement("span");
-      dot.className = "status-dot " + member.status.toLowerCase();
+      role.textContent = `[${member.role}]`
 
       const statusText = document.createElement("span");
       statusText.textContent =
-        statusLabels[member.status] || member.status;
 
       status.appendChild(dot);
-      status.appendChild(statusText);
 
       info.appendChild(username);
       info.appendChild(role);
-      info.appendChild(status);
 
       card.appendChild(avatar);
       card.appendChild(info);
