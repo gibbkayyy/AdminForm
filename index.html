@@ -1,182 +1,168 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090b10">
-  <title>🛡️ Slime RNG Admin Application</title>
-  <meta name="description" content="Slime RNG Admin Application">
+
+  <title>Slime RNG Admin Application</title>
+
+  <meta
+    name="description"
+    content="Apply to become a Slime RNG Admin and meet the Slime RNG team."
+  >
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html, body {
-      margin: 0;
-      min-height: 100%;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #f4f6fa;
-      background: #090b10;
+      min-height: 100vh;
+      font-family: Inter, Arial, sans-serif;
+      color: #f1f1f1;
+      background: #17191d;
       overflow-x: hidden;
     }
 
     /* =========================
-       ANIMATED BACKGROUND
+       BACKGROUND
        ========================= */
 
-    .background {
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
-      z-index: -10;
-      overflow: hidden;
+      z-index: -3;
       background:
-        radial-gradient(circle at 20% 15%, rgba(120, 135, 160, .13), transparent 28%),
-        radial-gradient(circle at 82% 78%, rgba(100, 115, 140, .10), transparent 30%),
-        #090b10;
-    }
-
-    .background::before {
-      content: "";
-      position: absolute;
-      inset: -25%;
-      background-image:
         linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 58px 58px;
-      transform: rotate(-6deg);
-      animation: gridMove 28s linear infinite;
+      background-size: 45px 45px;
+      animation: gridMove 18s linear infinite;
     }
 
-    .background::after {
+    body::after {
       content: "";
-      position: absolute;
+      position: fixed;
       inset: 0;
+      z-index: -2;
       background:
-        radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.38) 100%);
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,.035), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.025), transparent 30%);
       pointer-events: none;
     }
 
     .orb {
-      position: absolute;
+      position: fixed;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
-      filter: blur(85px);
-      opacity: .16;
+      filter: blur(80px);
+      opacity: .08;
+      z-index: -1;
       pointer-events: none;
-      animation: float 15s ease-in-out infinite alternate;
     }
 
     .orb.one {
-      width: 390px;
-      height: 390px;
-      left: -150px;
-      top: -170px;
-      background: #71809a;
+      top: 5%;
+      left: 5%;
+      background: #ffffff;
+      animation: floatOne 12s ease-in-out infinite;
     }
 
     .orb.two {
-      width: 420px;
-      height: 420px;
-      right: -180px;
-      bottom: -190px;
-      background: #56657e;
-      animation-delay: -6s;
-    }
-
-    .orb.three {
-      width: 220px;
-      height: 220px;
-      left: 58%;
-      top: 40%;
-      background: #aeb9ca;
-      opacity: .055;
-      animation-delay: -10s;
-    }
-
-    .particles {
-      position: absolute;
-      inset: 0;
-      opacity: .18;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(255,255,255,.25) 1px, transparent 1.5px);
-      background-size: 135px 135px, 195px 195px;
-      background-position: 20px 30px, 80px 90px;
-      animation: particlesMove 35s linear infinite;
+      right: 5%;
+      bottom: 10%;
+      background: #8d8d8d;
+      animation: floatTwo 15s ease-in-out infinite;
     }
 
     @keyframes gridMove {
-      from { transform: translate(0,0) rotate(-6deg); }
-      to { transform: translate(58px,58px) rotate(-6deg); }
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: 45px 45px;
+      }
     }
 
-    @keyframes particlesMove {
-      from { transform: translateY(0); }
-      to { transform: translateY(-135px); }
+    @keyframes floatOne {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(80px, 60px);
+      }
     }
 
-    @keyframes float {
-      from { transform: translate(-20px,-15px) scale(1); }
-      to { transform: translate(30px,25px) scale(1.08); }
+    @keyframes floatTwo {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(-70px, -50px);
+      }
     }
 
     /* =========================
-       LAYOUT
+       HERO
        ========================= */
 
-    .page {
-      width: min(760px, calc(100% - 30px));
-      margin: 0 auto;
-      padding: 58px 0 70px;
-    }
-
     .hero {
+      width: min(950px, calc(100% - 30px));
+      margin: 0 auto;
+      padding: 65px 20px 35px;
       text-align: center;
-      animation: fadeUp .7s ease both;
     }
 
     .shield {
-      width: 62px;
-      height: 62px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 19px;
-      border: 1px solid rgba(255,255,255,.11);
-      border-radius: 18px;
-      background: rgba(255,255,255,.055);
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 34px;
+
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px;
+
+      background: rgba(255,255,255,.035);
+
       box-shadow:
-        0 18px 50px rgba(0,0,0,.28),
-        inset 0 1px rgba(255,255,255,.08);
-      font-size: 27px;
-      animation: shieldFloat 4s ease-in-out infinite;
+        0 15px 40px rgba(0,0,0,.25),
+        inset 0 0 30px rgba(255,255,255,.025);
     }
 
-    @keyframes shieldFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(28px, 5vw, 42px);
-      line-height: 1.12;
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.05;
       letter-spacing: -1.5px;
+      margin-bottom: 15px;
     }
 
     .intro {
-      max-width: 650px;
-      margin: 14px auto 27px;
-      color: #aeb5c2;
-      font-size: 14px;
-      line-height: 1.65;
+      max-width: 700px;
+      margin: auto;
+      color: #aeb1b7;
+      font-size: 15px;
+      line-height: 1.7;
     }
 
     .intro strong {
-      color: #edf0f5;
+      display: block;
+      margin-top: 5px;
+      color: #e8e8e8;
     }
 
     /* =========================
@@ -184,77 +170,70 @@
        ========================= */
 
     .nav {
+      width: min(950px, calc(100% - 30px));
+      margin: 0 auto 25px;
+
       display: flex;
-      gap: 6px;
-      width: fit-content;
-      max-width: 100%;
-      margin: 0 auto 22px;
-      padding: 5px;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 14px;
-      background: rgba(15,18,25,.78);
-      box-shadow:
-        0 14px 45px rgba(0,0,0,.22),
-        inset 0 1px rgba(255,255,255,.04);
-      backdrop-filter: blur(18px);
-      animation: fadeUp .75s .05s ease both;
+      gap: 10px;
+
+      padding: 7px;
+
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 15px;
+
+      background: rgba(255,255,255,.025);
+      backdrop-filter: blur(15px);
     }
 
     .nav-button {
-      width: auto;
-      min-width: 150px;
-      padding: 11px 18px;
-      border: 0;
+      flex: 1;
+
+      padding: 13px 15px;
+
+      border: 1px solid transparent;
       border-radius: 10px;
-      cursor: pointer;
-      color: #929baa;
+
+      color: #999da5;
       background: transparent;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 650;
-      box-shadow: none;
-      transition:
-        transform .2s ease,
-        color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      cursor: pointer;
+      transition: .2s ease;
     }
 
     .nav-button:hover {
-      transform: translateY(-2px);
-      color: #f5f7fb;
-      background: rgba(255,255,255,.055);
-      box-shadow: none;
+      color: #fff;
+      background: rgba(255,255,255,.045);
     }
 
     .nav-button.active {
-      color: #11141b;
-      background: #edf0f4;
-      box-shadow: 0 8px 24px rgba(0,0,0,.24);
-    }
-
-    .nav-button.active:hover {
-      background: #fff;
-      color: #090b10;
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.09);
+      box-shadow: 0 5px 20px rgba(0,0,0,.15);
     }
 
     /* =========================
-       PAGE SWITCHING
+       PAGES
        ========================= */
 
     .tab-page {
       display: none;
+      width: min(950px, calc(100% - 30px));
+      margin: 0 auto 30px;
     }
 
     .tab-page.active {
       display: block;
-      animation: pageIn .35s ease both;
+      animation: pageIn .25s ease;
     }
 
     @keyframes pageIn {
       from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
       }
 
       to {
@@ -263,127 +242,172 @@
       }
     }
 
-    /* =========================
-       FORM CARD
-       ========================= */
-
     .card {
-      padding: 32px;
-      border: 1px solid rgba(255,255,255,.105);
-      border-radius: 24px;
-      background: rgba(16,19,27,.80);
+      padding: 28px;
+
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+
+      background: rgba(24,26,30,.88);
+
       box-shadow:
-        0 25px 80px rgba(0,0,0,.40),
-        inset 0 1px rgba(255,255,255,.045);
-      backdrop-filter: blur(20px);
+        0 25px 70px rgba(0,0,0,.3),
+        inset 0 1px rgba(255,255,255,.025);
     }
 
+    /* =========================
+       INFO BOXES
+       ========================= */
+
+    .application-info {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .info-box {
+      display: flex;
+      gap: 15px;
+
+      padding: 17px;
+
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+
+      background: rgba(255,255,255,.025);
+    }
+
+    .info-icon {
+      flex-shrink: 0;
+
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      background: rgba(255,255,255,.06);
+
+      font-size: 18px;
+    }
+
+    .info-box h3 {
+      margin-bottom: 6px;
+
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .info-box p,
+    .info-box li {
+      color: #9da1a9;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .info-box ul {
+      padding-left: 17px;
+    }
+
+    .info-box li {
+      margin-bottom: 2px;
+    }
+
+    /* =========================
+       QUESTIONS
+       ========================= */
+
     .question {
-      margin-bottom: 27px;
+      margin-bottom: 25px;
     }
 
     .question-title {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
       margin-bottom: 10px;
-      color: #eef1f6;
+
+      color: #ededed;
       font-size: 14px;
-      font-weight: 650;
+      font-weight: 700;
       line-height: 1.5;
     }
 
     .required {
-      margin-left: 5px;
-      color: #7e8796;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .3px;
+      padding: 3px 7px;
+
+      border-radius: 6px;
+
+      color: #aeb1b7;
+      background: rgba(255,255,255,.06);
+
+      font-size: 9px;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: .5px;
     }
 
     input[type="text"],
     textarea {
       width: 100%;
-      outline: none;
-      border: 1px solid rgba(255,255,255,.10);
-      border-radius: 12px;
+
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 11px;
+
       padding: 13px 14px;
-      color: #f4f6fa;
-      background: rgba(255,255,255,.045);
+
+      color: #fff;
+      background: rgba(0,0,0,.18);
+
       font: inherit;
-      font-size: 14px;
-      transition:
-        transform .2s ease,
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
+      font-size: 13px;
+
+      outline: none;
+
+      transition: .2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: rgba(255,255,255,.25);
+      background: rgba(0,0,0,.25);
+      box-shadow: 0 0 0 3px rgba(255,255,255,.025);
     }
 
     textarea {
-      min-height: 108px;
+      min-height: 125px;
       resize: vertical;
-      line-height: 1.55;
     }
 
     input::placeholder,
     textarea::placeholder {
-      color: #687181;
-    }
-
-    input:focus,
-    textarea:focus {
-      transform: translateY(-1px);
-      border-color: rgba(190,200,215,.50);
-      background: rgba(255,255,255,.065);
-      box-shadow: 0 0 0 4px rgba(180,192,211,.075);
-    }
-
-    .input-error {
-      border-color: rgba(255,100,100,.65) !important;
-      box-shadow: 0 0 0 4px rgba(255,80,80,.06) !important;
+      color: #60646c;
     }
 
     .hint {
-      margin-top: 8px;
-      color: #707987;
+      margin-top: 7px;
+
+      color: #777c84;
+
       font-size: 11px;
       line-height: 1.5;
     }
 
     /* =========================
-       CHARACTER COUNTERS
-       ========================= */
-
-    .textarea-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 6px;
-    }
-
-    .counter {
-      color: #606a79;
-      font-size: 10px;
-      transition: color .2s ease;
-    }
-
-    .counter.near-limit {
-      color: #b8a97b;
-    }
-
-    .counter.at-limit {
-      color: #d88787;
-    }
-
-    /* =========================
-       RADIO OPTIONS
+       OPTIONS
        ========================= */
 
     .options {
-      display: grid;
-      gap: 9px;
+      display: flex;
+      gap: 10px;
     }
 
     .option {
-      position: relative;
+      flex: 1;
     }
 
     .option input {
@@ -393,48 +417,50 @@
     }
 
     .option label {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      min-height: 48px;
-      padding: 11px 14px;
-      cursor: pointer;
-      border: 1px solid rgba(255,255,255,.085);
-      border-radius: 12px;
-      color: #bdc4cf;
-      background: rgba(255,255,255,.032);
-      font-size: 13px;
-      transition: .2s ease;
-    }
+      display: block;
 
-    .option label::before {
-      content: "";
-      width: 16px;
-      height: 16px;
-      flex: 0 0 16px;
-      border: 1px solid #606a79;
-      border-radius: 50%;
-      box-shadow: inset 0 0 0 4px #10131a;
+      padding: 12px;
+
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+
+      color: #9b9fa6;
+      background: rgba(255,255,255,.02);
+
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+
+      cursor: pointer;
+
       transition: .2s ease;
     }
 
     .option label:hover {
-      transform: translateX(3px);
-      border-color: rgba(255,255,255,.19);
-      color: #eef1f6;
-      background: rgba(255,255,255,.055);
+      color: #fff;
+      background: rgba(255,255,255,.05);
     }
 
     .option input:checked + label {
-      border-color: rgba(210,218,230,.35);
       color: #fff;
-      background: rgba(220,228,240,.075);
+      border-color: rgba(255,255,255,.25);
+      background: rgba(255,255,255,.09);
+      box-shadow: 0 5px 20px rgba(0,0,0,.15);
     }
 
-    .option input:checked + label::before {
-      border-color: #e0e5ed;
-      background: #e0e5ed;
-      box-shadow: inset 0 0 0 4px #151820;
+    /* =========================
+       TEXTAREA COUNTERS
+       ========================= */
+
+    .textarea-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 5px;
+    }
+
+    .counter {
+      color: #666a72;
+      font-size: 10px;
     }
 
     /* =========================
@@ -444,7 +470,7 @@
     .rating {
       display: grid;
       grid-template-columns: repeat(10, 1fr);
-      gap: 7px;
+      gap: 6px;
     }
 
     .rating input {
@@ -454,49 +480,72 @@
     }
 
     .rating label {
-      display: grid;
-      place-items: center;
-      height: 44px;
+      padding: 11px 4px;
+
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 9px;
+
+      color: #888c94;
+      background: rgba(255,255,255,.02);
+
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+
       cursor: pointer;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 10px;
-      color: #9ca4b2;
-      background: rgba(255,255,255,.035);
-      font-size: 13px;
-      font-weight: 650;
       transition: .2s ease;
     }
 
     .rating label:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,.24);
       color: #fff;
-      background: rgba(255,255,255,.07);
+      background: rgba(255,255,255,.05);
     }
 
     .rating input:checked + label {
+      color: #fff;
+      border-color: rgba(255,255,255,.3);
+      background: rgba(255,255,255,.1);
       transform: translateY(-2px);
-      color: #10131a;
-      background: #e8ebf0;
-      border-color: #fff;
-      box-shadow: 0 8px 22px rgba(255,255,255,.08);
     }
 
     .rating-display {
-      margin-top: 10px;
       min-height: 20px;
-      color: #cbd1db;
-      text-align: center;
+      margin-top: 10px;
+
+      color: #d4d6da;
+
       font-size: 12px;
-      font-weight: 650;
-      opacity: 0;
-      transform: translateY(-4px);
-      transition: .2s ease;
+      font-weight: 700;
+      text-align: center;
     }
 
-    .rating-display.visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* =========================
+       VALIDATION
+       ========================= */
+
+    .validation-message {
+      display: none;
+
+      margin-bottom: 15px;
+      padding: 11px 13px;
+
+      border: 1px solid rgba(255,100,100,.2);
+      border-radius: 10px;
+
+      color: #ffb1b1;
+      background: rgba(255,70,70,.06);
+
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .validation-message.show {
+      display: block;
+    }
+
+    .input-error {
+      border-color: rgba(255,100,100,.6) !important;
+      box-shadow: 0 0 0 3px rgba(255,80,80,.05) !important;
     }
 
     /* =========================
@@ -504,76 +553,61 @@
        ========================= */
 
     .submit-wrap {
-      display: grid;
-      gap: 10px;
-      margin-top: 34px;
-      padding-top: 25px;
-      border-top: 1px solid rgba(255,255,255,.07);
+      margin-top: 10px;
     }
 
     #submitButton,
     #clearButton {
       width: 100%;
-      border-radius: 13px;
-      padding: 15px 20px;
+
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 11px;
+
+      padding: 14px;
+
+      font-size: 13px;
+      font-weight: 800;
+
       cursor: pointer;
-      font: inherit;
-      font-size: 14px;
-      font-weight: 750;
-      transition:
-        transform .18s ease,
-        box-shadow .18s ease,
-        background .18s ease,
-        opacity .18s ease;
+
+      transition: .2s ease;
     }
 
     #submitButton {
-      border: 0;
-      color: #0b0d12;
-      background: #edf0f4;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      color: #111;
+      background: #f2f2f2;
     }
 
-    #submitButton:hover {
-      transform: translateY(-3px);
+    #submitButton:hover:not(:disabled) {
       background: #fff;
-      box-shadow: 0 17px 38px rgba(0,0,0,.35);
-    }
-
-    #submitButton:active {
-      transform: translateY(0) scale(.985);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0,0,0,.25);
     }
 
     #submitButton:disabled {
-      opacity: .65;
-      cursor: wait;
-      transform: none;
+      opacity: .55;
+      cursor: not-allowed;
     }
 
     #clearButton {
-      border: 1px solid rgba(255,255,255,.09);
-      color: #9da6b5;
+      margin-top: 9px;
+
+      color: #a2a5ab;
       background: rgba(255,255,255,.035);
     }
 
-    #clearButton:hover {
-      transform: translateY(-2px);
+    #clearButton:hover:not(:disabled) {
       color: #fff;
-      background: rgba(255,255,255,.065);
-      border-color: rgba(255,255,255,.16);
-    }
-
-    #clearButton:disabled {
-      opacity: .45;
-      cursor: not-allowed;
-      transform: none;
+      background: rgba(255,255,255,.07);
     }
 
     .save-status {
-      min-height: 15px;
-      color: #626c7b;
-      text-align: center;
+      margin-top: 10px;
+
+      color: #676b73;
+
       font-size: 10px;
+      text-align: center;
     }
 
     /* =========================
@@ -582,252 +616,305 @@
 
     .success {
       display: none;
+      padding: 25px 5px;
       text-align: center;
-      padding: 50px 20px;
     }
 
     .success-icon {
       width: 64px;
       height: 64px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 20px;
-      border: 1px solid rgba(255,255,255,.15);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 auto 18px;
+
+      border: 1px solid rgba(255,255,255,.12);
       border-radius: 50%;
-      background: rgba(255,255,255,.07);
+
+      color: #fff;
+      background: rgba(255,255,255,.06);
+
       font-size: 27px;
+      font-weight: 900;
     }
 
     .success h2 {
-      margin: 0 0 10px;
+      margin-bottom: 10px;
       font-size: 25px;
-      letter-spacing: -.6px;
     }
 
-    .success p {
-      margin: 0;
-      color: #aeb5c2;
-      font-size: 14px;
+    .success > p {
+      max-width: 500px;
+      margin: 5px auto;
+
+      color: #969aa2;
+      font-size: 13px;
       line-height: 1.6;
     }
 
+    .submission-status {
+      max-width: 500px;
+      margin: 25px auto 0;
+
+      display: grid;
+      gap: 8px;
+
+      text-align: left;
+    }
+
+    .status-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+
+      padding: 13px;
+
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 11px;
+
+      background: rgba(255,255,255,.025);
+    }
+
+    .status-item > span {
+      width: 30px;
+      text-align: center;
+    }
+
+    .status-item strong {
+      display: block;
+
+      color: #e8e8e8;
+      font-size: 12px;
+    }
+
+    .status-item small {
+      display: block;
+      margin-top: 3px;
+
+      color: #747880;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
     /* =========================
-       TEAM PAGE
+       TEAM
        ========================= */
 
     .team-header {
       margin-bottom: 25px;
+      text-align: center;
     }
 
     .team-header h2 {
-      margin: 0 0 8px;
+      margin-bottom: 7px;
       font-size: 25px;
-      letter-spacing: -.7px;
     }
 
     .team-header p {
-      margin: 0;
-      color: #929baa;
-      font-size: 13px;
+      color: #888c94;
+      font-size: 12px;
       line-height: 1.6;
+    }
+
+    .team-info {
+      margin-bottom: 25px;
     }
 
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 11px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
     .team-member {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      padding: 15px;
-      border: 1px solid rgba(255,255,255,.085);
+      padding: 17px;
+
+      border: 1px solid rgba(255,255,255,.07);
       border-radius: 14px;
-      background: rgba(255,255,255,.032);
-      transition:
-        transform .2s ease,
-        border-color .2s ease,
-        background .2s ease,
-        box-shadow .2s ease;
+
+      background: rgba(255,255,255,.025);
+
+      transition: .2s ease;
     }
 
     .team-member:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.055);
-      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+      border-color: rgba(255,255,255,.13);
+      background: rgba(255,255,255,.04);
+      transform: translateY(-2px);
+    }
+
+    .team-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .team-avatar {
-      width: 42px;
-      height: 42px;
-      flex: 0 0 42px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,.09);
+      width: 45px;
+      height: 45px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-shrink: 0;
+
+      border: 1px solid rgba(255,255,255,.1);
       border-radius: 12px;
-      color: #e9edf4;
+
+      color: #fff;
       background: rgba(255,255,255,.07);
-      font-size: 15px;
-      font-weight: 700;
+
+      font-size: 16px;
+      font-weight: 900;
     }
 
-    .team-info {
+    .team-member-info {
       min-width: 0;
-      flex: 1;
     }
 
-    .team-username {
-      display: block;
+    .team-member-info h3 {
       overflow: hidden;
-      color: #f1f3f7;
-      font-size: 13px;
-      font-weight: 650;
+
+      color: #ededed;
+      font-size: 14px;
+
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
     .team-role {
       display: inline-block;
-      margin-top: 5px;
-      color: #8f99a9;
+      margin-top: 3px;
+
+      color: #7f838b;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .7px;
+    }
+
+    .team-profile {
+      display: block;
+
+      margin-top: 14px;
+      padding: 9px;
+
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 8px;
+
+      color: #999da5;
+      background: rgba(255,255,255,.02);
+
       font-size: 10px;
-      font-weight: 750;
-      letter-spacing: .5px;
-    }
-
-    .team-status {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-top: 5px;
-      color: #727c8b;
-      font-size: 10px;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #727c8b;
-      box-shadow: 0 0 8px rgba(255,255,255,.08);
-    }
-
-    .status-dot.online {
-      background: #aeb7c5;
-      box-shadow: 0 0 9px rgba(220,225,235,.28);
-    }
-
-    .status-dot.away {
-      background: #8d8879;
-    }
-
-    .status-dot.offline {
-      background: #555e6d;
-    }
-
-    .footer {
-      margin-top: 22px;
-      color: #596170;
+      font-weight: 700;
       text-align: center;
+      text-decoration: none;
+
+      transition: .2s ease;
+    }
+
+    .team-profile:hover {
+      color: #fff;
+      background: rgba(255,255,255,.06);
+    }
+
+    .team-footer {
+      margin-top: 25px;
+
+      padding-top: 20px;
+
+      border-top: 1px solid rgba(255,255,255,.06);
+
+      text-align: center;
+    }
+
+    .team-footer p {
+      margin-bottom: 10px;
+
+      color: #777b83;
       font-size: 11px;
+    }
+
+    .team-apply-button {
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 9px;
+
+      padding: 11px 17px;
+
+      color: #d5d7da;
+      background: rgba(255,255,255,.035);
+
+      font-size: 11px;
+      font-weight: 700;
+
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .team-apply-button:hover {
+      color: #fff;
+      background: rgba(255,255,255,.07);
     }
 
     /* =========================
-       VALIDATION MESSAGE
+       FOOTER
        ========================= */
 
-    .validation-message {
-      display: none;
-      margin-top: 12px;
-      padding: 11px 13px;
-      border: 1px solid rgba(255,110,110,.18);
-      border-radius: 10px;
-      color: #c9a5a5;
-      background: rgba(255,80,80,.045);
-      font-size: 11px;
-      line-height: 1.5;
-    }
+    .footer {
+      width: min(950px, calc(100% - 30px));
 
-    .validation-message.show {
-      display: block;
-    }
+      margin: 35px auto 25px;
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
+      padding-top: 20px;
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      border-top: 1px solid rgba(255,255,255,.05);
+
+      color: #555960;
+
+      font-size: 10px;
+      text-align: center;
     }
 
     /* =========================
        MOBILE
        ========================= */
 
-    @media (max-width: 600px) {
-      .page {
-        width: min(100% - 20px, 760px);
-        padding: 38px 0 50px;
-      }
+    @media (max-width: 650px) {
 
-      .nav {
-        width: 100%;
-      }
-
-      .nav-button {
-        min-width: 0;
-        flex: 1;
-        padding: 11px 8px;
+      .hero {
+        padding-top: 40px;
       }
 
       .card {
-        padding: 22px 17px;
-        border-radius: 19px;
+        padding: 20px 16px;
       }
 
-      .rating {
-        gap: 4px;
+      .nav {
+        flex-direction: column;
       }
 
-      .rating label {
-        height: 39px;
-        border-radius: 8px;
-        font-size: 12px;
+      .nav-button {
+        flex: none;
       }
 
       .team-grid {
         grid-template-columns: 1fr;
       }
 
-      .question-title {
-        font-size: 13px;
-      }
-
-      input[type="text"],
-      textarea {
-        font-size: 16px;
-      }
-    }
-
-    @media (max-width: 390px) {
-      .nav-button {
-        font-size: 11px;
-      }
-
       .rating {
-        gap: 3px;
+        grid-template-columns: repeat(5, 1fr);
       }
 
-      .rating label {
-        height: 36px;
-        font-size: 11px;
+      .info-box {
+        align-items: flex-start;
+      }
+
+      .question-title {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
       }
     }
 
@@ -842,901 +929,1663 @@
       }
     }
   </style>
-
 </head>
 
 <body>
 
-  <div class="background" aria-hidden="true">
-    <div class="particles"></div>
-    <div class="orb one"></div>
-    <div class="orb two"></div>
-    <div class="orb three"></div>
-  </div>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
 
-  <main class="page">
+  <!-- =========================
+       HERO
+       ========================= -->
 
-```
-<header class="hero">
-  <div class="shield">🛡️</div>
+  <header class="hero">
 
-  <h1 id="pageTitle">Slime RNG Admin Application</h1>
+    <div class="shield">🛡️</div>
 
-  <p class="intro" id="pageIntro">
-    Fill out the application appropriately.
-    <strong>Make sure you like Slime RNG on Scratch and follow gibbkayyy!</strong>
-  </p>
-</header>
+    <h1 id="pageTitle">
+      Slime RNG Admin Application
+    </h1>
 
-<nav class="nav" aria-label="Pages">
-  <button class="nav-button active" type="button" data-page="application">
-    📝 Application
-  </button>
+    <p class="intro" id="pageIntro">
+      Think you have what it takes to help run Slime RNG?
+      <strong>
+        Make sure you like Slime RNG on Scratch and follow gibbkayyy!
+      </strong>
+    </p>
 
-  <button class="nav-button" type="button" data-page="team">
-    🛡️ Slime RNG Team
-  </button>
-</nav>
+  </header>
 
-<!-- =========================
-     PAGE 1 — APPLICATION
-     ========================= -->
 
-<section class="tab-page active" id="application">
+  <!-- =========================
+       NAVIGATION
+       ========================= -->
 
-  <div class="card">
+  <nav class="nav" aria-label="Pages">
 
-    <form
-      id="adminForm"
-      action="https://formspree.io/f/moeqowwq"
-      method="POST"
-      novalidate
+    <button
+      class="nav-button active"
+      type="button"
+      data-page="application"
     >
+      📝 Application
+    </button>
 
-      <div class="question">
-        <label class="question-title" for="username">
-          What is your Scratch Username?
-          <span class="required">Required</span>
-        </label>
+    <button
+      class="nav-button"
+      type="button"
+      data-page="team"
+    >
+      🛡️ Slime RNG Team
+    </button>
 
-        <input
-          id="username"
-          name="Scratch Username"
-          type="text"
-          placeholder="Enter your Scratch username"
-          autocomplete="off"
-          maxlength="50"
-          required
+  </nav>
+
+
+  <!-- =========================
+       PAGE 1 — APPLICATION
+       ========================= -->
+
+  <section class="tab-page active" id="application">
+
+    <div class="card">
+
+      <!-- APPLICATION INFORMATION -->
+
+      <div class="application-info">
+
+        <div class="info-box">
+
+          <div class="info-icon">📋</div>
+
+          <div>
+
+            <h3>Before You Apply</h3>
+
+            <ul>
+              <li>Be active on Scratch.</li>
+              <li>Know what Slime RNG is and how it works.</li>
+              <li>Be respectful and responsible.</li>
+              <li>Give genuine answers.</li>
+              <li>Make sure your Scratch username is correct.</li>
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-icon">🛡️</div>
+
+          <div>
+
+            <h3>What Does an Admin Do?</h3>
+
+            <p>
+              Slime RNG Admins help keep the game and community running smoothly.
+              This can include helping players, reporting problems, testing features,
+              spotting bugs, giving useful feedback, and helping keep the community
+              friendly.
+            </p>
+
+            <p style="margin-top:7px;">
+              Being an Admin is a responsibility, not just a special role.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-icon">⚠️</div>
+
+          <div>
+
+            <h3>Please Only Apply Once</h3>
+
+            <p>
+              Please don't repeatedly submit applications.
+              Duplicate applications may not be considered.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-icon">📅</div>
+
+          <div>
+
+            <h3>Application Reviews</h3>
+
+            <p>
+              Applications may not be reviewed immediately.
+              Please allow time for the Slime RNG team to read and consider
+              your application.
+            </p>
+
+            <p style="margin-top:7px;">
+              If you are selected, you will be contacted through your Scratch profile.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="info-box">
+
+          <div class="info-icon">🔒</div>
+
+          <div>
+
+            <h3>Privacy</h3>
+
+            <p>
+              The information you provide is used for the Slime RNG admin
+              application process. Please don't include passwords, private
+              information, or anything unrelated to your application.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           FORM
+           ========================= -->
+
+      <form
+        id="adminForm"
+        action="https://formspree.io/f/moeqowwq"
+        method="POST"
+        novalidate
+      >
+
+        <!-- USERNAME -->
+
+        <div class="question">
+
+          <label
+            class="question-title"
+            for="username"
+          >
+            What is your Scratch Username?
+
+            <span class="required">
+              Required
+            </span>
+          </label>
+
+          <input
+            id="username"
+            name="Scratch Username"
+            type="text"
+            placeholder="Enter your Scratch username"
+            autocomplete="off"
+            maxlength="50"
+            required
+          >
+
+          <div class="hint">
+            Make sure it is correct, as you will be contacted via your Scratch profile.
+          </div>
+
+        </div>
+
+
+        <!-- ACTIVE -->
+
+        <div class="question">
+
+          <label class="question-title">
+
+            Are you active on Scratch?
+
+            <span class="required">
+              Required
+            </span>
+
+          </label>
+
+          <div class="options">
+
+            <div class="option">
+
+              <input
+                id="activeYes"
+                name="Active on Scratch"
+                type="radio"
+                value="Yes"
+              >
+
+              <label for="activeYes">
+                Yes
+              </label>
+
+            </div>
+
+            <div class="option">
+
+              <input
+                id="activeNo"
+                name="Active on Scratch"
+                type="radio"
+                value="No"
+              >
+
+              <label for="activeNo">
+                No
+              </label>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- HOURS -->
+
+        <div class="question">
+
+          <label
+            class="question-title"
+            for="hours"
+          >
+
+            How many hours a week do you spend on Scratch?
+
+            <span class="required">
+              Required
+            </span>
+
+          </label>
+
+          <input
+            id="hours"
+            name="Hours per week on Scratch"
+            type="text"
+            placeholder="e.g. 5 hours"
+            maxlength="50"
+            required
+          >
+
+        </div>
+
+
+        <!-- WHY -->
+
+        <div class="question">
+
+          <label
+            class="question-title"
+            for="why"
+          >
+
+            Why do you want to be an Admin For Slime RNG?
+
+            <span class="required">
+              Required
+            </span>
+
+          </label>
+
+          <textarea
+            id="why"
+            name="Why they want to be an admin"
+            placeholder="Tell us why you want to become an admin..."
+            maxlength="1000"
+            required
+          ></textarea>
+
+          <div class="textarea-footer">
+
+            <span
+              class="counter"
+              id="whyCounter"
+            >
+              0 / 1000
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- SCRATCHER -->
+
+        <div class="question">
+
+          <label class="question-title">
+
+            Are you a Scratcher?
+
+            <span class="required">
+              Required
+            </span>
+
+          </label>
+
+          <div class="options">
+
+            <div class="option">
+
+              <input
+                id="scratcherYes"
+                name="Are you a Scratcher"
+                type="radio"
+                value="Yes"
+              >
+
+              <label for="scratcherYes">
+                Yes
+              </label>
+
+            </div>
+
+            <div class="option">
+
+              <input
+                id="scratcherNo"
+                name="Are you a Scratcher"
+                type="radio"
+                value="No"
+              >
+
+              <label for="scratcherNo">
+                No
+              </label>
+
+            </div>
+
+          </div>
+
+          <div class="hint">
+            You can check this on your Scratch profile.
+          </div>
+
+        </div>
+
+
+        <!-- QUESTIONS -->
+
+        <div class="question">
+
+          <label
+            class="question-title"
+            for="questions"
+          >
+
+            Put in any questions you have
+
+            <span class="required">
+              Optional
+            </span>
+
+          </label>
+
+          <textarea
+            id="questions"
+            name="Applicant Questions"
+            placeholder="Anything you want to ask?"
+            maxlength="500"
+          ></textarea>
+
+          <div class="textarea-footer">
+
+            <span
+              class="counter"
+              id="questionsCounter"
+            >
+              0 / 500
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- RATING -->
+
+        <div class="question">
+
+          <label class="question-title">
+
+            Rate Slime RNG out of 10 to help improve the game!
+
+            <span class="required">
+              Required
+            </span>
+
+          </label>
+
+          <div class="rating">
+
+            <input
+              id="rating1"
+              name="Slime RNG Rating"
+              type="radio"
+              value="1"
+            >
+            <label for="rating1">1</label>
+
+            <input
+              id="rating2"
+              name="Slime RNG Rating"
+              type="radio"
+              value="2"
+            >
+            <label for="rating2">2</label>
+
+            <input
+              id="rating3"
+              name="Slime RNG Rating"
+              type="radio"
+              value="3"
+            >
+            <label for="rating3">3</label>
+
+            <input
+              id="rating4"
+              name="Slime RNG Rating"
+              type="radio"
+              value="4"
+            >
+            <label for="rating4">4</label>
+
+            <input
+              id="rating5"
+              name="Slime RNG Rating"
+              type="radio"
+              value="5"
+            >
+            <label for="rating5">5</label>
+
+            <input
+              id="rating6"
+              name="Slime RNG Rating"
+              type="radio"
+              value="6"
+            >
+            <label for="rating6">6</label>
+
+            <input
+              id="rating7"
+              name="Slime RNG Rating"
+              type="radio"
+              value="7"
+            >
+            <label for="rating7">7</label>
+
+            <input
+              id="rating8"
+              name="Slime RNG Rating"
+              type="radio"
+              value="8"
+            >
+            <label for="rating8">8</label>
+
+            <input
+              id="rating9"
+              name="Slime RNG Rating"
+              type="radio"
+              value="9"
+            >
+            <label for="rating9">9</label>
+
+            <input
+              id="rating10"
+              name="Slime RNG Rating"
+              type="radio"
+              value="10"
+            >
+            <label for="rating10">10</label>
+
+          </div>
+
+          <div
+            class="rating-display"
+            id="ratingDisplay"
+          ></div>
+
+          <div class="hint">
+            This is anonymous and will not affect if you get Admin or not!
+            Give a genuine rating of the game!
+          </div>
+
+        </div>
+
+
+        <!-- IMPROVEMENTS -->
+
+        <div class="question">
+
+          <label
+            class="question-title"
+            for="improve"
+          >
+
+            Give reasons on how Slime RNG could Improve
+
+            <span class="required">
+              Optional
+            </span>
+
+          </label>
+
+          <textarea
+            id="improve"
+            name="How Slime RNG could improve"
+            placeholder="Tell us what you think could be improved..."
+            maxlength="1000"
+          ></textarea>
+
+          <div class="textarea-footer">
+
+            <span
+              class="counter"
+              id="improveCounter"
+            >
+              0 / 1000
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- VALIDATION -->
+
+        <div
+          class="validation-message"
+          id="validationMessage"
         >
-
-        <div class="hint">
-          Make sure it is correct, as you will be contacted via your Scratch profile.
+          Please complete all required questions before submitting.
         </div>
-      </div>
 
-      <div class="question">
-        <label class="question-title">
-          Are you active on Scratch?
-          <span class="required">Required</span>
-        </label>
 
-        <div class="options">
-          <div class="option">
-            <input id="activeYes" name="Active on Scratch" type="radio" value="Yes" required>
-            <label for="activeYes">Yes</label>
+        <!-- SUBMIT -->
+
+        <div class="submit-wrap">
+
+          <button
+            id="submitButton"
+            type="submit"
+          >
+            Submit Application
+          </button>
+
+          <button
+            id="clearButton"
+            type="button"
+          >
+            Clear Form
+          </button>
+
+          <div
+            class="save-status"
+            id="saveStatus"
+          >
+            Draft automatically saves on this device.
           </div>
 
-          <div class="option">
-            <input id="activeNo" name="Active on Scratch" type="radio" value="No">
-            <label for="activeNo">No</label>
-          </div>
         </div>
-      </div>
 
-      <div class="question">
-        <label class="question-title" for="hours">
-          How many hours a week do you spend on Scratch?
-          <span class="required">Required</span>
-        </label>
+      </form>
 
-        <input
-          id="hours"
-          name="Hours per week on Scratch"
-          type="text"
-          placeholder="e.g. 5 hours"
-          maxlength="50"
-          required
-        >
-      </div>
 
-      <div class="question">
-        <label class="question-title" for="why">
-          Why do you want to be an Admin For Slime RNG?
-          <span class="required">Required</span>
-        </label>
+      <!-- =========================
+           SUCCESS SCREEN
+           ========================= -->
 
-        <textarea
-          id="why"
-          name="Why they want to be an admin"
-          placeholder="Tell us why you want to become an admin..."
-          maxlength="1000"
-          required
-        ></textarea>
+      <div
+        class="success"
+        id="successMessage"
+      >
 
-        <div class="textarea-footer">
-          <span class="counter" id="whyCounter">0 / 1000</span>
+        <div class="success-icon">
+          ✓
         </div>
-      </div>
 
-      <div class="question">
-        <label class="question-title">
-          Are you a Scratcher?
-          <span class="required">Required</span>
-        </label>
+        <h2>
+          Form Submitted!
+        </h2>
 
-        <div class="options">
-          <div class="option">
-            <input id="scratcherYes" name="Are you a Scratcher" type="radio" value="Yes" required>
-            <label for="scratcherYes">Yes</label>
+        <p>
+          Your Slime RNG Admin Application has been received.
+        </p>
+
+        <p>
+          I will contact you via your Scratch profile as soon as I can!
+        </p>
+
+        <div class="submission-status">
+
+          <div class="status-item">
+
+            <span>✓</span>
+
+            <div>
+              <strong>
+                Application Received
+              </strong>
+
+              <small>
+                Your application has been submitted successfully.
+              </small>
+            </div>
+
           </div>
 
-          <div class="option">
-            <input id="scratcherNo" name="Are you a Scratcher" type="radio" value="No">
-            <label for="scratcherNo">No</label>
+
+          <div class="status-item">
+
+            <span>🕐</span>
+
+            <div>
+              <strong>
+                Under Review
+              </strong>
+
+              <small>
+                The team will review your application when possible.
+              </small>
+            </div>
+
           </div>
-        </div>
 
-        <div class="hint">
-          You can check this on your Scratch profile.
-        </div>
-      </div>
 
-      <div class="question">
-        <label class="question-title" for="questions">
-          Put in any questions you have
-          <span class="required">Optional</span>
-        </label>
+          <div class="status-item">
 
-        <textarea
-          id="questions"
-          name="Applicant Questions"
-          placeholder="Anything you want to ask?"
-          maxlength="500"
-        ></textarea>
+            <span>💬</span>
 
-        <div class="textarea-footer">
-          <span class="counter" id="questionsCounter">0 / 500</span>
-        </div>
-      </div>
+            <div>
+              <strong>
+                Contact
+              </strong>
 
-      <div class="question">
-        <label class="question-title">
-          Rate Slime RNG out of 10 to help improve the game!
-          <span class="required">Required</span>
-        </label>
+              <small>
+                If selected, you will be contacted through Scratch.
+              </small>
+            </div>
 
-        <div class="rating">
-          <input id="rating1" name="Slime RNG Rating" type="radio" value="1" required>
-          <label for="rating1">1</label>
+          </div>
 
-          <input id="rating2" name="Slime RNG Rating" type="radio" value="2">
-          <label for="rating2">2</label>
-
-          <input id="rating3" name="Slime RNG Rating" type="radio" value="3">
-          <label for="rating3">3</label>
-
-          <input id="rating4" name="Slime RNG Rating" type="radio" value="4">
-          <label for="rating4">4</label>
-
-          <input id="rating5" name="Slime RNG Rating" type="radio" value="5">
-          <label for="rating5">5</label>
-
-          <input id="rating6" name="Slime RNG Rating" type="radio" value="6">
-          <label for="rating6">6</label>
-
-          <input id="rating7" name="Slime RNG Rating" type="radio" value="7">
-          <label for="rating7">7</label>
-
-          <input id="rating8" name="Slime RNG Rating" type="radio" value="8">
-          <label for="rating8">8</label>
-
-          <input id="rating9" name="Slime RNG Rating" type="radio" value="9">
-          <label for="rating9">9</label>
-
-          <input id="rating10" name="Slime RNG Rating" type="radio" value="10">
-          <label for="rating10">10</label>
-        </div>
-
-        <div class="rating-display" id="ratingDisplay"></div>
-
-        <div class="hint">
-          This is anonymous and will not affect if you get Admin or not!
-          Give a genuine rating of the game!
-        </div>
-      </div>
-
-      <div class="question">
-        <label class="question-title" for="improve">
-          Give reasons on how Slime RNG could Improve
-          <span class="required">Optional</span>
-        </label>
-
-        <textarea
-          id="improve"
-          name="How Slime RNG could improve"
-          placeholder="Tell us what you think could be improved..."
-          maxlength="1000"
-        ></textarea>
-
-        <div class="textarea-footer">
-          <span class="counter" id="improveCounter">0 / 1000</span>
-        </div>
-      </div>
-
-      <div class="validation-message" id="validationMessage">
-        Please complete all required questions before submitting.
-      </div>
-
-      <div class="submit-wrap">
-
-        <button id="submitButton" type="submit">
-          Submit Application
-        </button>
-
-        <button id="clearButton" type="button">
-          Clear Form
-        </button>
-
-        <div class="save-status" id="saveStatus">
-          Draft automatically saves on this device.
         </div>
 
       </div>
 
-    </form>
-
-    <div class="success" id="successMessage">
-      <div class="success-icon">✓</div>
-      <h2>Form Submitted!</h2>
-      <p>
-        I will contact you via your Scratch profile as soon as I can!
-      </p>
     </div>
 
-  </div>
+  </section>
 
-</section>
 
-<!-- =========================
-     PAGE 2 — TEAM
-     ========================= -->
+  <!-- =========================
+       PAGE 2 — TEAM
+       ========================= -->
 
-<section class="tab-page" id="team">
+  <section
+    class="tab-page"
+    id="team"
+  >
 
-  <div class="card">
+    <div class="card">
 
-    <div class="team-header">
-      <h2>UNDER MAINTANENCE</h2>
-      <p>
-        Meet the people helping run, moderate, and improve Slime RNG.
-      </p>
+      <div class="team-header">
+
+        <h2>
+          Slime RNG Team
+        </h2>
+
+        <p>
+          Meet the people helping run, moderate, and improve Slime RNG.
+        </p>
+
+      </div>
+
+
+      <div class="team-info">
+
+        <div class="info-box">
+
+          <div class="info-icon">
+            🛡️
+          </div>
+
+          <div>
+
+            <h3>
+              What Our Admins Do
+            </h3>
+
+            <p>
+              Slime RNG Admins help players, report issues, test features,
+              provide feedback, and help keep the community friendly.
+            </p>
+
+            <p style="margin-top:7px;">
+              Admins are trusted members of the Slime RNG community and are
+              expected to act responsibly.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="team-grid"
+        id="teamGrid"
+      ></div>
+
+
+      <div class="team-footer">
+
+        <p>
+          Want to join the team?
+        </p>
+
+        <button
+          class="team-apply-button"
+          type="button"
+          data-page="application"
+        >
+          📝 Apply to Become an Admin
+        </button>
+
+      </div>
+
     </div>
 
-    <div class="team-grid" id="teamGrid"></div>
+  </section>
 
-  </div>
 
-</section>
+  <footer class="footer">
+    Slime RNG • Admin Applications
+  </footer>
 
-<footer class="footer">
-  Slime RNG • Admin Applications
-</footer>
-```
-
-  </main>
 
   <script>
-    /* =====================================================
-       SLIME RNG TEAM
-       =====================================================
 
-       EASY EDITING:
+    /* =========================
+       SETTINGS
+       ========================= */
 
-       Add a team member like this:
+    const DRAFT_KEY = "slimeRNGAdminApplicationDraft";
+    const SUBMITTED_KEY = "slimeRNGAdminApplicationSubmitted";
 
-       {
-         username: "ExampleUser",
-         role: "ADMIN",
-         status: "ONLINE"
-       }
-       
 
-       You only need to edit THIS list.
-       ===================================================== */
+    /* =========================
+       TEAM MEMBERS
+       ONLY EDIT THIS ARRAY
+       ========================= */
 
     const teamMembers = [
       {
         username: "gibbkayyy",
-        role: "OWNER",
+        role: "OWNER"
       },
+
       {
         username: "qcwojt",
-        role: "LEAD ADMIN",
+        role: "LEAD ADMIN"
       },
+
       {
         username: "Moralate",
-        role: "ADMIN",
+        role: "ADMIN"
       },
+
       {
         username: "Kobieg26",
-        role: "ADMIN",
+        role: "ADMIN"
       }
     ];
 
-    teamMembers.forEach(member => {
-      const card = document.createElement("div");
-      card.className = "team-member";
 
-      const avatar = document.createElement("div");
-      avatar.className = "team-avatar";
-      avatar.textContent = member.username.charAt(0).toUpperCase();
-
-      const info = document.createElement("div");
-      info.className = "team-info";
-
-      const username = document.createElement("span");
-      username.className = "team-username";
-      username.textContent = member.username;
-
-      const role = document.createElement("span");
-      role.className = "team-role";
-      role.textContent = `[${member.role}]`
-
-      const statusText = document.createElement("span");
-      statusText.textContent =
-
-      status.appendChild(dot);
-
-      info.appendChild(username);
-      info.appendChild(role);
-
-      card.appendChild(avatar);
-      card.appendChild(info);
-
-      teamGrid.appendChild(card);
-    });
-
-
-    /* =====================================================
-       PAGE SWITCHING
-       ===================================================== */
-
-    const navButtons = document.querySelectorAll(".nav-button");
-    const pages = document.querySelectorAll(".tab-page");
-
-    const pageTitle = document.getElementById("pageTitle");
-    const pageIntro = document.getElementById("pageIntro");
-
-    navButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.page;
-
-        navButtons.forEach(btn => {
-          btn.classList.toggle("active", btn === button);
-        });
-
-        pages.forEach(page => {
-          page.classList.toggle("active", page.id === target);
-        });
-
-        if (target === "team") {
-          pageTitle.textContent = "Slime RNG Team";
-
-          pageIntro.innerHTML =
-            'Meet the people helping run, moderate, and improve <strong>Slime RNG</strong>.';
-        } else {
-          pageTitle.textContent = "Slime RNG Admin Application";
-
-          pageIntro.innerHTML =
-            'Fill out the application appropriately. <strong>Make sure you like Slime RNG on Scratch and follow gibbkayyy!</strong>';
-        }
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      });
-    });
-
-
-    /* =====================================================
-       FORM ELEMENTS
-       ===================================================== */
+    /* =========================
+       ELEMENTS
+       ========================= */
 
     const form = document.getElementById("adminForm");
-    const submitButton = document.getElementById("submitButton");
-    const clearButton = document.getElementById("clearButton");
-    const successMessage = document.getElementById("successMessage");
-    const validationMessage = document.getElementById("validationMessage");
-    const saveStatus = document.getElementById("saveStatus");
-    const ratingDisplay = document.getElementById("ratingDisplay");
 
-    const usernameInput = document.getElementById("username");
-    const hoursInput = document.getElementById("hours");
+    const submitButton =
+      document.getElementById("submitButton");
 
-    const why = document.getElementById("why");
-    const questions = document.getElementById("questions");
-    const improve = document.getElementById("improve");
+    const clearButton =
+      document.getElementById("clearButton");
 
-    const STORAGE_KEY = "slimeRNGAdminApplicationDraft";
-    const SUBMITTED_KEY = "slimeRNGAdminApplicationSubmitted";
+    const saveStatus =
+      document.getElementById("saveStatus");
 
-    let hasUnsavedChanges = false;
-    let isSubmitting = false;
+    const successMessage =
+      document.getElementById("successMessage");
+
+    const validationMessage =
+      document.getElementById("validationMessage");
+
+    const ratingDisplay =
+      document.getElementById("ratingDisplay");
+
+    const teamGrid =
+      document.getElementById("teamGrid");
 
 
-    /* =====================================================
-       DUPLICATE SUBMISSION PROTECTION
-       ===================================================== */
+    /* =========================
+       PAGE SWITCHING
+       ========================= */
 
-    function hasAlreadySubmitted() {
-      return localStorage.getItem(SUBMITTED_KEY) === "true";
+    const navButtons =
+      document.querySelectorAll(".nav-button");
+
+    const pages =
+      document.querySelectorAll(".tab-page");
+
+    function switchPage(pageName) {
+
+      pages.forEach(page => {
+        page.classList.toggle(
+          "active",
+          page.id === pageName
+        );
+      });
+
+      navButtons.forEach(button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.page === pageName
+        );
+      });
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
 
-    function showDuplicateMessage() {
-      form.style.display = "none";
-      successMessage.style.display = "block";
 
-      successMessage.querySelector("h2").textContent =
-        "Application Already Submitted";
+    navButtons.forEach(button => {
 
-      successMessage.querySelector("p").textContent =
-        "An application has already been submitted from this browser.";
+      button.addEventListener("click", () => {
+
+        switchPage(
+          button.dataset.page
+        );
+
+      });
+
+    });
+
+
+    document.querySelectorAll(
+      ".team-apply-button"
+    ).forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => switchPage("application")
+      );
+
+    });
+
+
+    /* =========================
+       TEAM RENDERING
+       ========================= */
+
+    function renderTeam() {
+
+      teamGrid.innerHTML =
+        teamMembers.map(member => {
+
+          const firstLetter =
+            member.username
+              .charAt(0)
+              .toUpperCase();
+
+          return `
+            <div class="team-member">
+
+              <div class="team-top">
+
+                <div class="team-avatar">
+                  ${firstLetter}
+                </div>
+
+                <div class="team-member-info">
+
+                  <h3>
+                    ${escapeHTML(member.username)}
+                  </h3>
+
+                  <span class="team-role">
+                    [${escapeHTML(member.role)}]
+                  </span>
+
+                </div>
+
+              </div>
+
+              <a
+                class="team-profile"
+                href="https://scratch.mit.edu/users/${encodeURIComponent(member.username)}/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Scratch Profile ↗
+              </a>
+
+            </div>
+          `;
+
+        }).join("");
+
     }
 
-    if (hasAlreadySubmitted()) {
-      showDuplicateMessage();
+
+    function escapeHTML(text) {
+
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
     }
 
 
-    /* =====================================================
+    renderTeam();
+
+
+    /* =========================
        CHARACTER COUNTERS
-       ===================================================== */
+       ========================= */
 
-    function updateCounter(textarea, counter, max) {
-      const length = textarea.value.length;
-
-      counter.textContent = `${length} / ${max}`;
-
-      counter.classList.remove("near-limit", "at-limit");
-
-      if (length >= max) {
-        counter.classList.add("at-limit");
-      } else if (length >= max * 0.85) {
-        counter.classList.add("near-limit");
-      }
-    }
-
-    why.addEventListener("input", () => {
-      updateCounter(
-        why,
-        document.getElementById("whyCounter"),
-        1000
-      );
-    });
-
-    questions.addEventListener("input", () => {
-      updateCounter(
-        questions,
-        document.getElementById("questionsCounter"),
-        500
-      );
-    });
-
-    improve.addEventListener("input", () => {
-      updateCounter(
-        improve,
-        document.getElementById("improveCounter"),
-        1000
-      );
-    });
-
-
-    /* =====================================================
-       LIVE RATING
-       ===================================================== */
-
-    const ratingLabels = {
-      1: "1/10 — Very poor",
-      2: "2/10 — Poor",
-      3: "3/10 — Needs improvement",
-      4: "4/10 — Below average",
-      5: "5/10 — Average",
-      6: "6/10 — Decent",
-      7: "7/10 — Good",
-      8: "8/10 — Very good",
-      9: "9/10 — Great",
-      10: "10/10 — Excellent"
+    const counterLimits = {
+      why: 1000,
+      questions: 500,
+      improve: 1000
     };
 
-    document.querySelectorAll('input[name="Slime RNG Rating"]')
-      .forEach(input => {
-        input.addEventListener("change", () => {
-          ratingDisplay.textContent =
-            ratingLabels[input.value];
 
-          ratingDisplay.classList.add("visible");
-        });
+    function updateCounters() {
+
+      Object.keys(counterLimits).forEach(id => {
+
+        const textarea =
+          document.getElementById(id);
+
+        const counter =
+          document.getElementById(
+            `${id}Counter`
+          );
+
+        if (!textarea || !counter) return;
+
+        counter.textContent =
+          `${textarea.value.length} / ${counterLimits[id]}`;
+
+      });
+
+    }
+
+
+    Object.keys(counterLimits).forEach(id => {
+
+      const textarea =
+        document.getElementById(id);
+
+      if (!textarea) return;
+
+      textarea.addEventListener(
+        "input",
+        updateCounters
+      );
+
+    });
+
+
+    updateCounters();
+
+
+    /* =========================
+       RATING
+       ========================= */
+
+    const ratingLabels = {
+      1: "Very poor",
+      2: "Poor",
+      3: "Needs improvement",
+      4: "Below average",
+      5: "Average",
+      6: "Pretty good",
+      7: "Good",
+      8: "Very good",
+      9: "Excellent",
+      10: "Amazing"
+    };
+
+
+    function updateRating() {
+
+      const selected =
+        form.querySelector(
+          'input[name="Slime RNG Rating"]:checked'
+        );
+
+      if (!selected) {
+
+        ratingDisplay.textContent = "";
+
+        return;
+      }
+
+      const value =
+        selected.value;
+
+      ratingDisplay.textContent =
+        `${value}/10 — ${ratingLabels[value]}`;
+
+    }
+
+
+    form.querySelectorAll(
+      'input[name="Slime RNG Rating"]'
+    ).forEach(input => {
+
+      input.addEventListener(
+        "change",
+        () => {
+
+          updateRating();
+          saveDraft();
+
+        }
+      );
+
+    });
+
+
+    /* =========================
+       DRAFT SAVING
+       ========================= */
+
+    function saveDraft() {
+
+      const data = {};
+
+      const fields =
+        form.querySelectorAll(
+          "input, textarea"
+        );
+
+      fields.forEach(field => {
+
+        if (
+          field.type === "radio"
+        ) {
+
+          if (field.checked) {
+
+            data[field.name] =
+              field.value;
+
+          }
+
+        } else {
+
+          data[field.id] =
+            field.value;
+
+        }
+
       });
 
 
-    /* =====================================================
-       AUTO-SAVE
-       ===================================================== */
-
-    function saveDraft() {
-      if (isSubmitting) return;
-
-      const data = {
-        username: usernameInput.value,
-        active: document.querySelector(
-          'input[name="Active on Scratch"]:checked'
-        )?.value || "",
-
-        hours: hoursInput.value,
-        why: why.value,
-
-        scratcher: document.querySelector(
-          'input[name="Are you a Scratcher"]:checked'
-        )?.value || "",
-
-        questions: questions.value,
-
-        rating: document.querySelector(
-          'input[name="Slime RNG Rating"]:checked'
-        )?.value || "",
-
-        improve: improve.value
-      };
-
       localStorage.setItem(
-        STORAGE_KEY,
+        DRAFT_KEY,
         JSON.stringify(data)
       );
 
-      hasUnsavedChanges = true;
-
       saveStatus.textContent =
         "Draft saved on this device.";
+
     }
 
 
-    function loadDraft() {
-      const saved = localStorage.getItem(STORAGE_KEY);
+    function restoreDraft() {
+
+      const saved =
+        localStorage.getItem(DRAFT_KEY);
 
       if (!saved) return;
 
       try {
-        const data = JSON.parse(saved);
 
-        usernameInput.value = data.username || "";
-        hoursInput.value = data.hours || "";
-        why.value = data.why || "";
-        questions.value = data.questions || "";
-        improve.value = data.improve || "";
+        const data =
+          JSON.parse(saved);
 
-        if (data.active) {
-          const activeInput = document.querySelector(
-            `input[name="Active on Scratch"][value="${data.active}"]`
-          );
 
-          if (activeInput) {
-            activeInput.checked = true;
+        Object.keys(data).forEach(key => {
+
+          const radio =
+            form.querySelector(
+              `input[type="radio"][name="${CSS.escape(key)}"][value="${CSS.escape(data[key])}"]`
+            );
+
+          if (radio) {
+
+            radio.checked = true;
+
+            return;
           }
-        }
 
-        if (data.scratcher) {
-          const scratcherInput = document.querySelector(
-            `input[name="Are you a Scratcher"][value="${data.scratcher}"]`
-          );
 
-          if (scratcherInput) {
-            scratcherInput.checked = true;
+          const field =
+            document.getElementById(key);
+
+          if (field) {
+
+            field.value =
+              data[key];
+
           }
-        }
 
-        if (data.rating) {
-          const ratingInput = document.querySelector(
-            `input[name="Slime RNG Rating"][value="${data.rating}"]`
-          );
+        });
 
-          if (ratingInput) {
-            ratingInput.checked = true;
 
-            ratingDisplay.textContent =
-              ratingLabels[data.rating];
-
-            ratingDisplay.classList.add("visible");
-          }
-        }
-
-        updateCounter(
-          why,
-          document.getElementById("whyCounter"),
-          1000
-        );
-
-        updateCounter(
-          questions,
-          document.getElementById("questionsCounter"),
-          500
-        );
-
-        updateCounter(
-          improve,
-          document.getElementById("improveCounter"),
-          1000
-        );
+        updateCounters();
+        updateRating();
 
         saveStatus.textContent =
           "Saved draft restored.";
 
-      } catch (error) {
-        console.warn("Could not restore saved draft.", error);
+      } catch {
+
+        localStorage.removeItem(
+          DRAFT_KEY
+        );
+
       }
+
     }
 
 
-    /* Save whenever something changes */
+    form.addEventListener(
+      "input",
+      () => {
 
-    form.addEventListener("input", () => {
-      saveDraft();
-    });
+        saveDraft();
 
-    form.addEventListener("change", () => {
-      saveDraft();
-    });
-
-
-    /* Restore previous draft */
-
-    loadDraft();
+      }
+    );
 
 
-    /* =====================================================
+    form.addEventListener(
+      "change",
+      () => {
+
+        saveDraft();
+
+      }
+    );
+
+
+    restoreDraft();
+
+
+    /* =========================
        CLEAR FORM
-       ===================================================== */
+       ========================= */
 
-    clearButton.addEventListener("click", () => {
+    clearButton.addEventListener(
+      "click",
+      () => {
 
-      if (isSubmitting) return;
+        const confirmed =
+          confirm(
+            "Are you sure you want to clear your application? Your saved draft will be deleted."
+          );
 
-      const confirmed = confirm(
-        "Are you sure you want to clear your entire application? Your saved draft will also be deleted."
-      );
+        if (!confirmed) return;
 
-      if (!confirmed) return;
 
-      form.reset();
+        form.reset();
 
-      localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(
+          DRAFT_KEY
+        );
 
-      hasUnsavedChanges = false;
 
-      validationMessage.classList.remove("show");
+        form.querySelectorAll(
+          ".input-error"
+        ).forEach(element => {
 
-      ratingDisplay.textContent = "";
-      ratingDisplay.classList.remove("visible");
+          element.classList.remove(
+            "input-error"
+          );
 
-      updateCounter(
-        why,
-        document.getElementById("whyCounter"),
-        1000
-      );
-
-      updateCounter(
-        questions,
-        document.getElementById("questionsCounter"),
-        500
-      );
-
-      updateCounter(
-        improve,
-        document.getElementById("improveCounter"),
-        1000
-      );
-
-      document
-        .querySelectorAll(".input-error")
-        .forEach(element => {
-          element.classList.remove("input-error");
         });
 
-      saveStatus.textContent =
-        "Form cleared.";
-    });
+
+        validationMessage.classList.remove(
+          "show"
+        );
 
 
-    /* =====================================================
-       FIELD VALIDATION
-       ===================================================== */
+        ratingDisplay.textContent = "";
+
+        updateCounters();
+
+
+        saveStatus.textContent =
+          "Form cleared. No draft is currently saved.";
+
+      }
+    );
+
+
+    /* =========================
+       VALIDATION
+       ========================= */
 
     function validateForm() {
+
       let valid = true;
 
-      document
-        .querySelectorAll(".input-error")
-        .forEach(element => {
-          element.classList.remove("input-error");
-        });
 
-      validationMessage.classList.remove("show");
+      form.querySelectorAll(
+        ".input-error"
+      ).forEach(element => {
 
-      if (usernameInput.value.trim().length < 2) {
-        usernameInput.classList.add("input-error");
-        valid = false;
-      }
+        element.classList.remove(
+          "input-error"
+        );
 
-      if (hoursInput.value.trim().length < 1) {
-        hoursInput.classList.add("input-error");
-        valid = false;
-      }
+      });
 
-      if (why.value.trim().length < 10) {
-        why.classList.add("input-error");
-        valid = false;
-      }
 
-      const activeSelected =
-        document.querySelector(
+      validationMessage.classList.remove(
+        "show"
+      );
+
+
+      const username =
+        document.getElementById("username");
+
+      const hours =
+        document.getElementById("hours");
+
+      const why =
+        document.getElementById("why");
+
+
+      const active =
+        form.querySelector(
           'input[name="Active on Scratch"]:checked'
         );
 
-      if (!activeSelected) {
-        valid = false;
-      }
 
-      const scratcherSelected =
-        document.querySelector(
+      const scratcher =
+        form.querySelector(
           'input[name="Are you a Scratcher"]:checked'
         );
 
-      if (!scratcherSelected) {
-        valid = false;
-      }
 
-      const ratingSelected =
-        document.querySelector(
+      const rating =
+        form.querySelector(
           'input[name="Slime RNG Rating"]:checked'
         );
 
-      if (!ratingSelected) {
+
+      if (
+        username.value.trim().length < 2
+      ) {
+
+        username.classList.add(
+          "input-error"
+        );
+
         valid = false;
+
       }
+
+
+      if (
+        hours.value.trim() === ""
+      ) {
+
+        hours.classList.add(
+          "input-error"
+        );
+
+        valid = false;
+
+      }
+
+
+      if (
+        why.value.trim().length < 10
+      ) {
+
+        why.classList.add(
+          "input-error"
+        );
+
+        valid = false;
+
+      }
+
+
+      if (!active) {
+
+        document
+          .querySelector(
+            "#activeYes + label"
+          )
+          ?.closest(".options")
+          ?.classList.add(
+            "input-error"
+          );
+
+        valid = false;
+
+      }
+
+
+      if (!scratcher) {
+
+        document
+          .querySelector(
+            "#scratcherYes + label"
+          )
+          ?.closest(".options")
+          ?.classList.add(
+            "input-error"
+          );
+
+        valid = false;
+
+      }
+
+
+      if (!rating) {
+
+        document
+          .querySelector(
+            ".rating"
+          )
+          ?.classList.add(
+            "input-error"
+          );
+
+        valid = false;
+
+      }
+
 
       if (!valid) {
-        validationMessage.textContent =
-          "Please complete all required questions. Your admin reason must be at least 10 characters.";
 
-        validationMessage.classList.add("show");
+        validationMessage.classList.add(
+          "show"
+        );
+
+        validationMessage.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
       }
 
+
       return valid;
+
     }
 
 
-    /* =====================================================
-       UNSAVED CHANGES WARNING
-       ===================================================== */
+    /* =========================
+       SUBMISSION
+       ========================= */
 
-    window.addEventListener("beforeunload", event => {
+    form.addEventListener(
+      "submit",
+      async event => {
 
-      if (
-        hasUnsavedChanges &&
-        !isSubmitting &&
-        !hasAlreadySubmitted()
-      ) {
         event.preventDefault();
-        event.returnValue = "";
-      }
-
-    });
 
 
-    /* =====================================================
-       FORMSPREE SUBMISSION
-       ===================================================== */
-
-    form.addEventListener("submit", async event => {
-
-      event.preventDefault();
-
-      if (isSubmitting) return;
-
-      if (hasAlreadySubmitted()) {
-        showDuplicateMessage();
-        return;
-      }
-
-      if (!validateForm()) {
-        form.reportValidity();
-        return;
-      }
-
-      isSubmitting = true;
-
-      submitButton.disabled = true;
-      clearButton.disabled = true;
-
-      submitButton.textContent =
-        "Submitting Application...";
-
-      saveStatus.textContent =
-        "Sending your application...";
-
-      try {
-
-        const response = await fetch(form.action, {
-          method: "POST",
-          body: new FormData(form),
-          headers: {
-            "Accept": "application/json"
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error("Submission failed");
+        if (!validateForm()) {
+          return;
         }
 
-        /* Mark this browser as submitted */
 
-        localStorage.setItem(
-          SUBMITTED_KEY,
-          "true"
-        );
+        /*
+          This is only browser-side duplicate protection.
+          It does not prevent someone from submitting
+          from another browser/device.
+        */
 
-        localStorage.removeItem(
-          STORAGE_KEY
-        );
+        if (
+          localStorage.getItem(
+            SUBMITTED_KEY
+          ) === "true"
+        ) {
 
-        hasUnsavedChanges = false;
+          alert(
+            "An application has already been submitted from this browser. If you need to submit another application, please contact the Slime RNG team."
+          );
 
-        form.style.display = "none";
+          return;
+        }
 
-        successMessage.style.display = "block";
 
-        successMessage.querySelector("h2").textContent =
-          "Form Submitted!";
-
-        successMessage.querySelector("p").textContent =
-          "I will contact you via your Scratch profile as soon as I can!";
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-
-      } catch (error) {
-
-        console.error(error);
-
-        isSubmitting = false;
-
-        submitButton.disabled = false;
-        clearButton.disabled = false;
+        submitButton.disabled = true;
+        clearButton.disabled = true;
 
         submitButton.textContent =
-          "Submit Application";
+          "Submitting Application...";
 
         saveStatus.textContent =
-          "Your draft is still saved on this device.";
+          "Sending your application...";
 
-        alert(
-          "Something went wrong while submitting the form. Please try again."
-        );
+
+        try {
+
+          const response =
+            await fetch(
+              form.action,
+              {
+                method: "POST",
+                body: new FormData(form),
+                headers: {
+                  "Accept":
+                    "application/json"
+                }
+              }
+            );
+
+
+          if (!response.ok) {
+            throw new Error(
+              "Submission failed"
+            );
+          }
+
+
+          localStorage.setItem(
+            SUBMITTED_KEY,
+            "true"
+          );
+
+
+          localStorage.removeItem(
+            DRAFT_KEY
+          );
+
+
+          form.style.display =
+            "none";
+
+          successMessage.style.display =
+            "block";
+
+
+          saveStatus.textContent =
+            "Application submitted.";
+
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+
+        } catch (error) {
+
+          submitButton.disabled =
+            false;
+
+          clearButton.disabled =
+            false;
+
+          submitButton.textContent =
+            "Submit Application";
+
+
+          saveStatus.textContent =
+            "Your draft is still saved on this device.";
+
+
+          alert(
+            "Something went wrong while submitting the form. Please try again."
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       ALREADY SUBMITTED
+       ========================= */
+
+    function checkAlreadySubmitted() {
+
+      if (
+        localStorage.getItem(
+          SUBMITTED_KEY
+        ) !== "true"
+      ) {
+        return;
       }
 
-    });
+
+      form.style.display =
+        "none";
+
+
+      successMessage.style.display =
+        "block";
+
+
+      successMessage.querySelector(
+        "h2"
+      ).textContent =
+        "Application Already Submitted";
+
+
+      successMessage.querySelector(
+        "p"
+      ).textContent =
+        "An application has already been submitted from this browser.";
+
+
+      const secondParagraph =
+        successMessage.querySelectorAll(
+          "p"
+        )[1];
+
+
+      if (secondParagraph) {
+
+        secondParagraph.textContent =
+          "If you need to contact the Slime RNG team, please do so through Scratch.";
+
+      }
+
+    }
+
+
+    checkAlreadySubmitted();
+
+
+    /* =========================
+       CLEAN UP INPUT ERRORS
+       ========================= */
+
+    form.addEventListener(
+      "input",
+      event => {
+
+        if (
+          event.target.classList.contains(
+            "input-error"
+          )
+        ) {
+
+          event.target.classList.remove(
+            "input-error"
+          );
+
+        }
+
+
+        validationMessage.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+
+    form.addEventListener(
+      "change",
+      () => {
+
+        validationMessage.classList.remove(
+          "show"
+        );
+
+        document
+          .querySelectorAll(
+            ".options.input-error, .rating.input-error"
+          )
+          .forEach(element => {
+
+            element.classList.remove(
+              "input-error"
+            );
+
+          });
+
+      }
+    );
 
   </script>
 
