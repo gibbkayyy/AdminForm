@@ -4,12 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Slime RNG Admin Application</title>
-
-  <meta
-    name="description"
-    content="Apply to become a Slime RNG Admin and meet the Slime RNG team."
-  >
+  <title>Slime RNG Community</title>
 
   <style>
     * {
@@ -18,216 +13,152 @@
       padding: 0;
     }
 
-    html {
-      scroll-behavior: smooth;
+    :root {
+      --bg: #111318;
+      --bg-light: #181b22;
+      --card: rgba(28, 32, 41, 0.88);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f4f5f7;
+      --muted: #9ca3af;
+      --accent: #5865f2;
+      --accent-hover: #4752c4;
+      --green: #55d187;
     }
 
     body {
       min-height: 100vh;
-      font-family: Inter, Arial, sans-serif;
-      color: #f1f1f1;
-      background: #17191d;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        var(--bg);
+      background-size: 42px 42px;
       overflow-x: hidden;
     }
-
-    /* =========================
-       BACKGROUND
-       ========================= */
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: -3;
+      pointer-events: none;
       background:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 45px 45px;
-      animation: gridMove 18s linear infinite;
+        radial-gradient(circle at 15% 20%, rgba(88, 101, 242, 0.12), transparent 30%),
+        radial-gradient(circle at 85% 75%, rgba(85, 209, 135, 0.08), transparent 30%);
+      z-index: -2;
     }
 
     body::after {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: -2;
-      background:
-        radial-gradient(circle at 20% 15%, rgba(255,255,255,.035), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(255,255,255,.025), transparent 30%);
       pointer-events: none;
-    }
-
-    .orb {
-      position: fixed;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: .08;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 90px 90px;
+      animation: moveDots 18s linear infinite;
+      opacity: 0.3;
       z-index: -1;
-      pointer-events: none;
     }
 
-    .orb.one {
-      top: 5%;
-      left: 5%;
-      background: #ffffff;
-      animation: floatOne 12s ease-in-out infinite;
-    }
-
-    .orb.two {
-      right: 5%;
-      bottom: 10%;
-      background: #8d8d8d;
-      animation: floatTwo 15s ease-in-out infinite;
-    }
-
-    @keyframes gridMove {
+    @keyframes moveDots {
       from {
         background-position: 0 0;
       }
 
       to {
-        background-position: 45px 45px;
+        background-position: 90px 90px;
       }
     }
-
-    @keyframes floatOne {
-      0%, 100% {
-        transform: translate(0, 0);
-      }
-
-      50% {
-        transform: translate(80px, 60px);
-      }
-    }
-
-    @keyframes floatTwo {
-      0%, 100% {
-        transform: translate(0, 0);
-      }
-
-      50% {
-        transform: translate(-70px, -50px);
-      }
-    }
-
-    /* =========================
-       HERO
-       ========================= */
 
     .hero {
-      width: min(950px, calc(100% - 30px));
-      margin: 0 auto;
-      padding: 65px 20px 35px;
       text-align: center;
+      padding: 80px 20px 45px;
+      max-width: 900px;
+      margin: auto;
     }
 
-    .shield {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 20px;
-
+    .hero-icon {
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 22px;
       display: flex;
       align-items: center;
       justify-content: center;
-
-      font-size: 34px;
-
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 20px;
-
-      background: rgba(255,255,255,.035);
-
-      box-shadow:
-        0 15px 40px rgba(0,0,0,.25),
-        inset 0 0 30px rgba(255,255,255,.025);
+      font-size: 42px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.3);
     }
 
     .hero h1 {
-      font-size: clamp(30px, 5vw, 52px);
+      font-size: clamp(2.2rem, 6vw, 4rem);
       line-height: 1.05;
+      margin-bottom: 18px;
       letter-spacing: -1.5px;
-      margin-bottom: 15px;
     }
 
-    .intro {
-      max-width: 700px;
-      margin: auto;
-      color: #aeb1b7;
-      font-size: 15px;
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
       line-height: 1.7;
+      max-width: 680px;
+      margin: auto;
     }
 
-    .intro strong {
-      display: block;
-      margin-top: 5px;
-      color: #e8e8e8;
+    .hero strong {
+      color: var(--text);
     }
-
-    /* =========================
-       NAVIGATION
-       ========================= */
 
     .nav {
-      width: min(950px, calc(100% - 30px));
-      margin: 0 auto 25px;
-
+      width: min(900px, calc(100% - 30px));
+      margin: 0 auto 35px;
       display: flex;
-      gap: 10px;
-
+      gap: 8px;
       padding: 7px;
-
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 15px;
-
-      background: rgba(255,255,255,.025);
+      background: rgba(20, 23, 30, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 16px;
       backdrop-filter: blur(15px);
+      position: sticky;
+      top: 15px;
+      z-index: 50;
     }
 
-    .nav-button {
+    .nav button {
       flex: 1;
-
-      padding: 13px 15px;
-
-      border: 1px solid transparent;
-      border-radius: 10px;
-
-      color: #999da5;
+      border: none;
+      border-radius: 11px;
+      padding: 14px 18px;
       background: transparent;
-
-      font-size: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
       font-weight: 700;
-
       cursor: pointer;
-      transition: .2s ease;
+      transition: 0.2s ease;
     }
 
-    .nav-button:hover {
-      color: #fff;
-      background: rgba(255,255,255,.045);
+    .nav button:hover {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
     }
 
-    .nav-button.active {
-      color: #fff;
-      background: rgba(255,255,255,.08);
-      border-color: rgba(255,255,255,.09);
-      box-shadow: 0 5px 20px rgba(0,0,0,.15);
+    .nav button.active {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 7px 25px rgba(88,101,242,0.25);
     }
-
-    /* =========================
-       PAGES
-       ========================= */
 
     .tab-page {
       display: none;
-      width: min(950px, calc(100% - 30px));
-      margin: 0 auto 30px;
+      width: min(900px, calc(100% - 30px));
+      margin: 0 auto 70px;
+      animation: pageIn 0.3s ease;
     }
 
     .tab-page.active {
       display: block;
-      animation: pageIn .25s ease;
     }
 
     @keyframes pageIn {
@@ -243,678 +174,225 @@
     }
 
     .card {
-      padding: 28px;
-
-      border: 1px solid rgba(255,255,255,.08);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 20px;
-
-      background: rgba(24,26,30,.88);
-
-      box-shadow:
-        0 25px 70px rgba(0,0,0,.3),
-        inset 0 1px rgba(255,255,255,.025);
+      padding: 30px;
+      margin-bottom: 18px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 15px 50px rgba(0,0,0,0.18);
     }
 
-    /* =========================
-       INFO BOXES
-       ========================= */
-
-    .application-info {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 32px;
+    .card h2 {
+      font-size: 1.45rem;
+      margin-bottom: 12px;
     }
 
-    .info-box {
-      display: flex;
-      gap: 15px;
-
-      padding: 17px;
-
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 14px;
-
-      background: rgba(255,255,255,.025);
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
     }
 
-    .info-icon {
-      flex-shrink: 0;
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
-      width: 38px;
-      height: 38px;
+    .discord-card {
+      text-align: center;
+      padding: 50px 30px;
+      border-color: rgba(88,101,242,0.25);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(88,101,242,0.12),
+          rgba(28,32,41,0.9)
+        );
+    }
 
-      display: flex;
+    .discord-icon {
+      font-size: 58px;
+      margin-bottom: 20px;
+    }
+
+    .discord-card h2 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 12px;
+    }
+
+    .discord-card p {
+      max-width: 620px;
+      margin: 0 auto 28px;
+    }
+
+    .discord-button {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-
-      border-radius: 10px;
-
-      background: rgba(255,255,255,.06);
-
-      font-size: 18px;
-    }
-
-    .info-box h3 {
-      margin-bottom: 6px;
-
-      color: #fff;
-      font-size: 14px;
-    }
-
-    .info-box p,
-    .info-box li {
-      color: #9da1a9;
-      font-size: 12px;
-      line-height: 1.65;
-    }
-
-    .info-box ul {
-      padding-left: 17px;
-    }
-
-    .info-box li {
-      margin-bottom: 2px;
-    }
-
-    /* =========================
-       QUESTIONS
-       ========================= */
-
-    .question {
-      margin-bottom: 25px;
-    }
-
-    .question-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      margin-bottom: 10px;
-
-      color: #ededed;
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.5;
-    }
-
-    .required {
-      padding: 3px 7px;
-
-      border-radius: 6px;
-
-      color: #aeb1b7;
-      background: rgba(255,255,255,.06);
-
-      font-size: 9px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-
-    input[type="text"],
-    textarea {
-      width: 100%;
-
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 11px;
-
-      padding: 13px 14px;
-
-      color: #fff;
-      background: rgba(0,0,0,.18);
-
-      font: inherit;
-      font-size: 13px;
-
-      outline: none;
-
-      transition: .2s ease;
-    }
-
-    input[type="text"]:focus,
-    textarea:focus {
-      border-color: rgba(255,255,255,.25);
-      background: rgba(0,0,0,.25);
-      box-shadow: 0 0 0 3px rgba(255,255,255,.025);
-    }
-
-    textarea {
-      min-height: 125px;
-      resize: vertical;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #60646c;
-    }
-
-    .hint {
-      margin-top: 7px;
-
-      color: #777c84;
-
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    /* =========================
-       OPTIONS
-       ========================= */
-
-    .options {
-      display: flex;
       gap: 10px;
-    }
-
-    .option {
-      flex: 1;
-    }
-
-    .option input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .option label {
-      display: block;
-
-      padding: 12px;
-
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 10px;
-
-      color: #9b9fa6;
-      background: rgba(255,255,255,.02);
-
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-
-      cursor: pointer;
-
-      transition: .2s ease;
-    }
-
-    .option label:hover {
-      color: #fff;
-      background: rgba(255,255,255,.05);
-    }
-
-    .option input:checked + label {
-      color: #fff;
-      border-color: rgba(255,255,255,.25);
-      background: rgba(255,255,255,.09);
-      box-shadow: 0 5px 20px rgba(0,0,0,.15);
-    }
-
-    /* =========================
-       TEXTAREA COUNTERS
-       ========================= */
-
-    .textarea-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 5px;
-    }
-
-    .counter {
-      color: #666a72;
-      font-size: 10px;
-    }
-
-    /* =========================
-       RATING
-       ========================= */
-
-    .rating {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 6px;
-    }
-
-    .rating input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .rating label {
-      padding: 11px 4px;
-
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 9px;
-
-      color: #888c94;
-      background: rgba(255,255,255,.02);
-
-      text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    .rating label:hover {
-      color: #fff;
-      background: rgba(255,255,255,.05);
-    }
-
-    .rating input:checked + label {
-      color: #fff;
-      border-color: rgba(255,255,255,.3);
-      background: rgba(255,255,255,.1);
-      transform: translateY(-2px);
-    }
-
-    .rating-display {
-      min-height: 20px;
-      margin-top: 10px;
-
-      color: #d4d6da;
-
-      font-size: 12px;
-      font-weight: 700;
-      text-align: center;
-    }
-
-    /* =========================
-       VALIDATION
-       ========================= */
-
-    .validation-message {
-      display: none;
-
-      margin-bottom: 15px;
-      padding: 11px 13px;
-
-      border: 1px solid rgba(255,100,100,.2);
-      border-radius: 10px;
-
-      color: #ffb1b1;
-      background: rgba(255,70,70,.06);
-
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .validation-message.show {
-      display: block;
-    }
-
-    .input-error {
-      border-color: rgba(255,100,100,.6) !important;
-      box-shadow: 0 0 0 3px rgba(255,80,80,.05) !important;
-    }
-
-    /* =========================
-       SUBMIT AREA
-       ========================= */
-
-    .submit-wrap {
-      margin-top: 10px;
-    }
-
-    #submitButton,
-    #clearButton {
-      width: 100%;
-
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 11px;
-
-      padding: 14px;
-
-      font-size: 13px;
+      padding: 15px 26px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
       font-weight: 800;
-
-      cursor: pointer;
-
-      transition: .2s ease;
+      transition: 0.2s ease;
+      box-shadow: 0 10px 30px rgba(88,101,242,0.25);
     }
 
-    #submitButton {
-      color: #111;
-      background: #f2f2f2;
+    .discord-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(88,101,242,0.35);
     }
 
-    #submitButton:hover:not(:disabled) {
-      background: #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 25px rgba(0,0,0,.25);
-    }
-
-    #submitButton:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-    }
-
-    #clearButton {
-      margin-top: 9px;
-
-      color: #a2a5ab;
-      background: rgba(255,255,255,.035);
-    }
-
-    #clearButton:hover:not(:disabled) {
-      color: #fff;
-      background: rgba(255,255,255,.07);
-    }
-
-    .save-status {
-      margin-top: 10px;
-
-      color: #676b73;
-
-      font-size: 10px;
-      text-align: center;
-    }
-
-    /* =========================
-       SUCCESS
-       ========================= */
-
-    .success {
-      display: none;
-      padding: 25px 5px;
-      text-align: center;
-    }
-
-    .success-icon {
-      width: 64px;
-      height: 64px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin: 0 auto 18px;
-
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 50%;
-
-      color: #fff;
-      background: rgba(255,255,255,.06);
-
-      font-size: 27px;
-      font-weight: 900;
-    }
-
-    .success h2 {
-      margin-bottom: 10px;
-      font-size: 25px;
-    }
-
-    .success > p {
-      max-width: 500px;
-      margin: 5px auto;
-
-      color: #969aa2;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .submission-status {
-      max-width: 500px;
-      margin: 25px auto 0;
-
+    .community-grid {
       display: grid;
-      gap: 8px;
-
-      text-align: left;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
     }
 
-    .status-item {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-
-      padding: 13px;
-
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 11px;
-
-      background: rgba(255,255,255,.025);
+    .community-item {
+      padding: 22px;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: 15px;
     }
 
-    .status-item > span {
-      width: 30px;
-      text-align: center;
-    }
-
-    .status-item strong {
-      display: block;
-
-      color: #e8e8e8;
-      font-size: 12px;
-    }
-
-    .status-item small {
-      display: block;
-      margin-top: 3px;
-
-      color: #747880;
-      font-size: 10px;
-      line-height: 1.4;
-    }
-
-    /* =========================
-       TEAM
-       ========================= */
-
-    .team-header {
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    .team-header h2 {
-      margin-bottom: 7px;
+    .community-item .icon {
       font-size: 25px;
+      margin-bottom: 12px;
     }
 
-    .team-header p {
-      color: #888c94;
-      font-size: 12px;
+    .community-item h3 {
+      margin-bottom: 7px;
+    }
+
+    .community-item p {
+      font-size: 0.9rem;
       line-height: 1.6;
-    }
-
-    .team-info {
-      margin-bottom: 25px;
     }
 
     .team-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 18px;
     }
 
-    .team-member {
-      padding: 17px;
-
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 14px;
-
-      background: rgba(255,255,255,.025);
-
-      transition: .2s ease;
-    }
-
-    .team-member:hover {
-      border-color: rgba(255,255,255,.13);
-      background: rgba(255,255,255,.04);
-      transform: translateY(-2px);
-    }
-
-    .team-top {
+    .team-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 26px;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 18px;
+      transition: 0.2s ease;
     }
 
-    .team-avatar {
-      width: 45px;
-      height: 45px;
+    .team-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,255,255,0.14);
+    }
 
+    .avatar {
+      width: 62px;
+      height: 62px;
+      flex-shrink: 0;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-
-      flex-shrink: 0;
-
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 12px;
-
-      color: #fff;
-      background: rgba(255,255,255,.07);
-
-      font-size: 16px;
+      font-size: 1.35rem;
       font-weight: 900;
+      background: linear-gradient(
+        135deg,
+        rgba(88,101,242,0.3),
+        rgba(255,255,255,0.07)
+      );
+      border: 1px solid var(--border);
     }
 
-    .team-member-info {
+    .team-info {
+      flex: 1;
       min-width: 0;
     }
 
-    .team-member-info h3 {
-      overflow: hidden;
-
-      color: #ededed;
-      font-size: 14px;
-
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .team-info h3 {
+      margin-bottom: 5px;
+      word-break: break-word;
     }
 
-    .team-role {
-      display: inline-block;
-      margin-top: 3px;
-
-      color: #7f838b;
-      font-size: 9px;
+    .role {
+      color: var(--green);
+      font-size: 0.8rem;
       font-weight: 800;
-      letter-spacing: .7px;
+      letter-spacing: 0.5px;
     }
 
-    .team-profile {
-      display: block;
-
-      margin-top: 14px;
-      padding: 9px;
-
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 8px;
-
-      color: #999da5;
-      background: rgba(255,255,255,.02);
-
-      font-size: 10px;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-
-      transition: .2s ease;
-    }
-
-    .team-profile:hover {
-      color: #fff;
-      background: rgba(255,255,255,.06);
-    }
-
-    .team-footer {
-      margin-top: 25px;
-
-      padding-top: 20px;
-
-      border-top: 1px solid rgba(255,255,255,.06);
-
-      text-align: center;
-    }
-
-    .team-footer p {
-      margin-bottom: 10px;
-
-      color: #777b83;
-      font-size: 11px;
-    }
-
-    .team-apply-button {
-      border: 1px solid rgba(255,255,255,.09);
+    .scratch-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 13px;
+      padding: 9px 12px;
       border-radius: 9px;
-
-      padding: 11px 17px;
-
-      color: #d5d7da;
-      background: rgba(255,255,255,.035);
-
-      font-size: 11px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.82rem;
       font-weight: 700;
-
-      cursor: pointer;
-      transition: .2s ease;
+      transition: 0.2s ease;
     }
 
-    .team-apply-button:hover {
-      color: #fff;
-      background: rgba(255,255,255,.07);
+    .scratch-link:hover {
+      background: rgba(255,255,255,0.09);
     }
 
-    /* =========================
-       FOOTER
-       ========================= */
+    .team-intro {
+      margin-bottom: 20px;
+    }
+
+    .team-cta {
+      text-align: center;
+    }
 
     .footer {
-      width: min(950px, calc(100% - 30px));
-
-      margin: 35px auto 25px;
-
-      padding-top: 20px;
-
-      border-top: 1px solid rgba(255,255,255,.05);
-
-      color: #555960;
-
-      font-size: 10px;
       text-align: center;
+      color: #6f7682;
+      padding: 0 20px 35px;
+      font-size: 0.85rem;
     }
 
-    /* =========================
-       MOBILE
-       ========================= */
-
-    @media (max-width: 650px) {
-
+    @media (max-width: 700px) {
       .hero {
-        padding-top: 40px;
-      }
-
-      .card {
-        padding: 20px 16px;
+        padding-top: 55px;
       }
 
       .nav {
-        flex-direction: column;
+        top: 8px;
       }
 
-      .nav-button {
-        flex: none;
+      .nav button {
+        padding: 12px 8px;
+        font-size: 0.85rem;
       }
 
+      .community-grid,
       .team-grid {
         grid-template-columns: 1fr;
       }
 
-      .rating {
-        grid-template-columns: repeat(5, 1fr);
+      .card {
+        padding: 23px;
       }
 
-      .info-box {
-        align-items: flex-start;
+      .discord-card {
+        padding: 38px 22px;
       }
 
-      .question-title {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 5px;
+      .team-card {
+        padding: 20px;
       }
     }
 
@@ -922,10 +400,10 @@
       *,
       *::before,
       *::after {
-        animation-duration: .01ms !important;
+        animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -933,881 +411,183 @@
 
 <body>
 
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-
-  <!-- =========================
-       HERO
-       ========================= -->
-
+  <!-- HERO -->
   <header class="hero">
+    <div class="hero-icon">🛡️</div>
 
-    <div class="shield">🛡️</div>
+    <h1>Slime RNG Community</h1>
 
-    <h1 id="pageTitle">
-      Slime RNG Admin Application
-    </h1>
-
-    <p class="intro" id="pageIntro">
-      Think you have what it takes to help run Slime RNG?
+    <p>
+      Join the Slime RNG community!
+      <br>
       <strong>
-        Make sure you like Slime RNG on Scratch and follow gibbkayyy!
+        Chat, keep up with updates, share your slimes and hang out
+        with other players.
       </strong>
     </p>
-
   </header>
 
-
-  <!-- =========================
-       NAVIGATION
-       ========================= -->
-
-  <nav class="nav" aria-label="Pages">
-
-    <button
-      class="nav-button active"
-      type="button"
-      data-page="application"
-    >
-      📝 Application
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <button class="nav-btn active" data-page="community">
+      💬 Community
     </button>
 
-    <button
-      class="nav-button"
-      type="button"
-      data-page="team"
-    >
+    <button class="nav-btn" data-page="team">
       🛡️ Slime RNG Team
     </button>
-
   </nav>
 
+  <!-- COMMUNITY PAGE -->
+  <section class="tab-page active" id="community">
 
-  <!-- =========================
-       PAGE 1 — APPLICATION
-       ========================= -->
+    <div class="card discord-card">
 
-  <section class="tab-page active" id="application">
+      <div class="discord-icon">💬</div>
+
+      <h2>Join the Slime RNG community!</h2>
+
+      <p>
+        Come hang out with the Slime RNG community on Discord!
+        Get updates, talk about the game, share your luck and
+        stay up to date with everything happening in Slime RNG.
+      </p>
+
+      <a
+        class="discord-button"
+        href="https://discord.gg/bQkjW449D"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        💬 Join the Discord Server ↗
+      </a>
+
+    </div>
 
     <div class="card">
+      <h2>🌟 What you can do</h2>
 
-      <!-- APPLICATION INFORMATION -->
+      <div class="community-grid">
 
-      <div class="application-info">
-
-        <div class="info-box">
-
-          <div class="info-icon">📋</div>
-
-          <div>
-
-            <h3>Before You Apply</h3>
-
-            <ul>
-              <li>Be active on Scratch.</li>
-              <li>Know what Slime RNG is and how it works.</li>
-              <li>Be respectful and responsible.</li>
-              <li>Give genuine answers.</li>
-              <li>Make sure your Scratch username is correct.</li>
-            </ul>
-
-          </div>
-
+        <div class="community-item">
+          <div class="icon">💬</div>
+          <h3>Chat</h3>
+          <p>
+            Talk with other Slime RNG players and members of the community.
+          </p>
         </div>
 
-
-        <div class="info-box">
-
-          <div class="info-icon">🛡️</div>
-
-          <div>
-
-            <h3>What Does an Admin Do?</h3>
-
-            <p>
-              Slime RNG Admins help keep the game and community running smoothly.
-              This can include helping players, reporting problems, testing features,
-              spotting bugs, giving useful feedback, and helping keep the community
-              friendly.
-            </p>
-
-            <p style="margin-top:7px;">
-              Being an Admin is a responsibility, not just a special role.
-            </p>
-
-          </div>
-
+        <div class="community-item">
+          <div class="icon">🧪</div>
+          <h3>Slime RNG</h3>
+          <p>
+            Discuss slimes, rarities, luck, updates, codes and everything
+            else in the game.
+          </p>
         </div>
 
-
-        <div class="info-box">
-
-          <div class="info-icon">⚠️</div>
-
-          <div>
-
-            <h3>Please Only Apply Once</h3>
-
-            <p>
-              Please don't repeatedly submit applications.
-              Duplicate applications may not be considered.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="info-box">
-
-          <div class="info-icon">📅</div>
-
-          <div>
-
-            <h3>Application Reviews</h3>
-
-            <p>
-              Applications may not be reviewed immediately.
-              Please allow time for the Slime RNG team to read and consider
-              your application.
-            </p>
-
-            <p style="margin-top:7px;">
-              If you are selected, you will be contacted through your Scratch profile.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="info-box">
-
-          <div class="info-icon">🔒</div>
-
-          <div>
-
-            <h3>Privacy</h3>
-
-            <p>
-              The information you provide is used for the Slime RNG admin
-              application process. Please don't include passwords, private
-              information, or anything unrelated to your application.
-            </p>
-
-          </div>
-
+        <div class="community-item">
+          <div class="icon">📢</div>
+          <h3>Updates</h3>
+          <p>
+            Keep up with new Slime RNG updates, announcements and
+            community news.
+          </p>
         </div>
 
       </div>
-
-
-      <!-- =========================
-           FORM
-           ========================= -->
-
-      <form
-        id="adminForm"
-        action="https://formspree.io/f/moeqowwq"
-        method="POST"
-        novalidate
-      >
-
-        <!-- USERNAME -->
-
-        <div class="question">
-
-          <label
-            class="question-title"
-            for="username"
-          >
-            What is your Scratch Username?
-
-            <span class="required">
-              Required
-            </span>
-          </label>
-
-          <input
-            id="username"
-            name="Scratch Username"
-            type="text"
-            placeholder="Enter your Scratch username"
-            autocomplete="off"
-            maxlength="50"
-            required
-          >
-
-          <div class="hint">
-            Make sure it is correct, as you will be contacted via your Scratch profile.
-          </div>
-
-        </div>
-
-
-        <!-- ACTIVE -->
-
-        <div class="question">
-
-          <label class="question-title">
-
-            Are you active on Scratch?
-
-            <span class="required">
-              Required
-            </span>
-
-          </label>
-
-          <div class="options">
-
-            <div class="option">
-
-              <input
-                id="activeYes"
-                name="Active on Scratch"
-                type="radio"
-                value="Yes"
-              >
-
-              <label for="activeYes">
-                Yes
-              </label>
-
-            </div>
-
-            <div class="option">
-
-              <input
-                id="activeNo"
-                name="Active on Scratch"
-                type="radio"
-                value="No"
-              >
-
-              <label for="activeNo">
-                No
-              </label>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- HOURS -->
-
-        <div class="question">
-
-          <label
-            class="question-title"
-            for="hours"
-          >
-
-            How many hours a week do you spend on Scratch?
-
-            <span class="required">
-              Required
-            </span>
-
-          </label>
-
-          <input
-            id="hours"
-            name="Hours per week on Scratch"
-            type="text"
-            placeholder="e.g. 5 hours"
-            maxlength="50"
-            required
-          >
-
-        </div>
-
-
-        <!-- WHY -->
-
-        <div class="question">
-
-          <label
-            class="question-title"
-            for="why"
-          >
-
-            Why do you want to be an Admin For Slime RNG?
-
-            <span class="required">
-              Required
-            </span>
-
-          </label>
-
-          <textarea
-            id="why"
-            name="Why they want to be an admin"
-            placeholder="Tell us why you want to become an admin..."
-            maxlength="1000"
-            required
-          ></textarea>
-
-          <div class="textarea-footer">
-
-            <span
-              class="counter"
-              id="whyCounter"
-            >
-              0 / 1000
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <!-- SCRATCHER -->
-
-        <div class="question">
-
-          <label class="question-title">
-
-            Are you a Scratcher?
-
-            <span class="required">
-              Required
-            </span>
-
-          </label>
-
-          <div class="options">
-
-            <div class="option">
-
-              <input
-                id="scratcherYes"
-                name="Are you a Scratcher"
-                type="radio"
-                value="Yes"
-              >
-
-              <label for="scratcherYes">
-                Yes
-              </label>
-
-            </div>
-
-            <div class="option">
-
-              <input
-                id="scratcherNo"
-                name="Are you a Scratcher"
-                type="radio"
-                value="No"
-              >
-
-              <label for="scratcherNo">
-                No
-              </label>
-
-            </div>
-
-          </div>
-
-          <div class="hint">
-            You can check this on your Scratch profile.
-          </div>
-
-        </div>
-
-
-        <!-- QUESTIONS -->
-
-        <div class="question">
-
-          <label
-            class="question-title"
-            for="questions"
-          >
-
-            Put in any questions you have
-
-            <span class="required">
-              Optional
-            </span>
-
-          </label>
-
-          <textarea
-            id="questions"
-            name="Applicant Questions"
-            placeholder="Anything you want to ask?"
-            maxlength="500"
-          ></textarea>
-
-          <div class="textarea-footer">
-
-            <span
-              class="counter"
-              id="questionsCounter"
-            >
-              0 / 500
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <!-- RATING -->
-
-        <div class="question">
-
-          <label class="question-title">
-
-            Rate Slime RNG out of 10 to help improve the game!
-
-            <span class="required">
-              Required
-            </span>
-
-          </label>
-
-          <div class="rating">
-
-            <input
-              id="rating1"
-              name="Slime RNG Rating"
-              type="radio"
-              value="1"
-            >
-            <label for="rating1">1</label>
-
-            <input
-              id="rating2"
-              name="Slime RNG Rating"
-              type="radio"
-              value="2"
-            >
-            <label for="rating2">2</label>
-
-            <input
-              id="rating3"
-              name="Slime RNG Rating"
-              type="radio"
-              value="3"
-            >
-            <label for="rating3">3</label>
-
-            <input
-              id="rating4"
-              name="Slime RNG Rating"
-              type="radio"
-              value="4"
-            >
-            <label for="rating4">4</label>
-
-            <input
-              id="rating5"
-              name="Slime RNG Rating"
-              type="radio"
-              value="5"
-            >
-            <label for="rating5">5</label>
-
-            <input
-              id="rating6"
-              name="Slime RNG Rating"
-              type="radio"
-              value="6"
-            >
-            <label for="rating6">6</label>
-
-            <input
-              id="rating7"
-              name="Slime RNG Rating"
-              type="radio"
-              value="7"
-            >
-            <label for="rating7">7</label>
-
-            <input
-              id="rating8"
-              name="Slime RNG Rating"
-              type="radio"
-              value="8"
-            >
-            <label for="rating8">8</label>
-
-            <input
-              id="rating9"
-              name="Slime RNG Rating"
-              type="radio"
-              value="9"
-            >
-            <label for="rating9">9</label>
-
-            <input
-              id="rating10"
-              name="Slime RNG Rating"
-              type="radio"
-              value="10"
-            >
-            <label for="rating10">10</label>
-
-          </div>
-
-          <div
-            class="rating-display"
-            id="ratingDisplay"
-          ></div>
-
-          <div class="hint">
-            This is anonymous and will not affect if you get Admin or not!
-            Give a genuine rating of the game!
-          </div>
-
-        </div>
-
-
-        <!-- IMPROVEMENTS -->
-
-        <div class="question">
-
-          <label
-            class="question-title"
-            for="improve"
-          >
-
-            Give reasons on how Slime RNG could Improve
-
-            <span class="required">
-              Optional
-            </span>
-
-          </label>
-
-          <textarea
-            id="improve"
-            name="How Slime RNG could improve"
-            placeholder="Tell us what you think could be improved..."
-            maxlength="1000"
-          ></textarea>
-
-          <div class="textarea-footer">
-
-            <span
-              class="counter"
-              id="improveCounter"
-            >
-              0 / 1000
-            </span>
-
-          </div>
-
-        </div>
-
-
-        <!-- VALIDATION -->
-
-        <div
-          class="validation-message"
-          id="validationMessage"
-        >
-          Please complete all required questions before submitting.
-        </div>
-
-
-        <!-- SUBMIT -->
-
-        <div class="submit-wrap">
-
-          <button
-            id="submitButton"
-            type="submit"
-          >
-            Submit Application
-          </button>
-
-          <button
-            id="clearButton"
-            type="button"
-          >
-            Clear Form
-          </button>
-
-          <div
-            class="save-status"
-            id="saveStatus"
-          >
-            Draft automatically saves on this device.
-          </div>
-
-        </div>
-
-      </form>
-
-
-      <!-- =========================
-           SUCCESS SCREEN
-           ========================= -->
-
-      <div
-        class="success"
-        id="successMessage"
-      >
-
-        <div class="success-icon">
-          ✓
-        </div>
-
-        <h2>
-          Form Submitted!
-        </h2>
-
-        <p>
-          Your Slime RNG Admin Application has been received.
-        </p>
-
-        <p>
-          I will contact you via your Scratch profile as soon as I can!
-        </p>
-
-        <div class="submission-status">
-
-          <div class="status-item">
-
-            <span>✓</span>
-
-            <div>
-              <strong>
-                Application Received
-              </strong>
-
-              <small>
-                Your application has been submitted successfully.
-              </small>
-            </div>
-
-          </div>
-
-
-          <div class="status-item">
-
-            <span>🕐</span>
-
-            <div>
-              <strong>
-                Under Review
-              </strong>
-
-              <small>
-                The team will review your application when possible.
-              </small>
-            </div>
-
-          </div>
-
-
-          <div class="status-item">
-
-            <span>💬</span>
-
-            <div>
-              <strong>
-                Contact
-              </strong>
-
-              <small>
-                If selected, you will be contacted through Scratch.
-              </small>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
 
   </section>
 
-
-  <!-- =========================
-       PAGE 2 — TEAM
-       ========================= -->
-
-  <section
-    class="tab-page"
-    id="team"
-  >
+  <!-- TEAM PAGE -->
+  <section class="tab-page" id="team">
 
     <div class="card">
+      <h2>🛡️ Slime RNG Team</h2>
 
-      <div class="team-header">
+      <p class="team-intro">
+        Meet the people currently running and helping manage Slime RNG.
+      </p>
 
-        <h2>
-          Slime RNG Team
-        </h2>
+      <div class="team-grid" id="teamGrid"></div>
+    </div>
 
-        <p>
-          Meet the people helping run, moderate, and improve Slime RNG.
-        </p>
+    <div class="card">
+      <h2>💚 What Our Admins Do</h2>
 
-      </div>
+      <p>
+        The Slime RNG team helps keep the community organised,
+        supports players, handles community issues and helps
+        Slime RNG continue to grow.
+      </p>
+    </div>
 
+    <div class="card team-cta">
+      <h2>💬 Join the Community</h2>
 
-      <div class="team-info">
+      <p style="margin-bottom: 20px;">
+        Want to meet the community? Join the Slime RNG Discord server!
+      </p>
 
-        <div class="info-box">
-
-          <div class="info-icon">
-            🛡️
-          </div>
-
-          <div>
-
-            <h3>
-              What Our Admins Do
-            </h3>
-
-            <p>
-              Slime RNG Admins help players, report issues, test features,
-              provide feedback, and help keep the community friendly.
-            </p>
-
-            <p style="margin-top:7px;">
-              Admins are trusted members of the Slime RNG community and are
-              expected to act responsibly.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="team-grid"
-        id="teamGrid"
-      ></div>
-
-
-      <div class="team-footer">
-
-        <p>
-          Want to join the team?
-        </p>
-
-        <button
-          class="team-apply-button"
-          type="button"
-          data-page="application"
-        >
-          📝 Apply to Become an Admin
-        </button>
-
-      </div>
-
+      <a
+        class="discord-button"
+        href="https://discord.gg/bQkjW449D"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        💬 Join Discord ↗
+      </a>
     </div>
 
   </section>
-
 
   <footer class="footer">
-    Slime RNG • Admin Applications
+    Slime RNG • Community
   </footer>
-
 
   <script>
 
-    /* =========================
-       SETTINGS
-       ========================= */
-
-    const DRAFT_KEY = "slimeRNGAdminApplicationDraft";
-    const SUBMITTED_KEY = "slimeRNGAdminApplicationSubmitted";
-
-
-    /* =========================
-       TEAM MEMBERS
-       ONLY EDIT THIS ARRAY
-       ========================= */
+    /*
+      ================================
+      SLIME RNG TEAM
+      ================================
+    */
 
     const teamMembers = [
       {
         username: "gibbkayyy",
         role: "OWNER"
       },
-
-      {
-        username: "qcwojt",
-        role: "LEAD ADMIN"
-      },
-
       {
         username: "Moralate",
-        role: "ADMIN"
-      },
-
-      {
-        username: "Kobieg26",
-        role: "ADMIN"
+        role: "LEAD ADMIN"
       }
     ];
 
 
-    /* =========================
-       ELEMENTS
-       ========================= */
+    /*
+      ================================
+      PAGE SWITCHING
+      ================================
+    */
 
-    const form = document.getElementById("adminForm");
+    const navButtons = document.querySelectorAll(".nav-btn");
+    const pages = document.querySelectorAll(".tab-page");
 
-    const submitButton =
-      document.getElementById("submitButton");
-
-    const clearButton =
-      document.getElementById("clearButton");
-
-    const saveStatus =
-      document.getElementById("saveStatus");
-
-    const successMessage =
-      document.getElementById("successMessage");
-
-    const validationMessage =
-      document.getElementById("validationMessage");
-
-    const ratingDisplay =
-      document.getElementById("ratingDisplay");
-
-    const teamGrid =
-      document.getElementById("teamGrid");
-
-
-    /* =========================
-       PAGE SWITCHING
-       ========================= */
-
-    const navButtons =
-      document.querySelectorAll(".nav-button");
-
-    const pages =
-      document.querySelectorAll(".tab-page");
-
-    function switchPage(pageName) {
+    function switchPage(pageId) {
 
       pages.forEach(page => {
         page.classList.toggle(
           "active",
-          page.id === pageName
+          page.id === pageId
         );
       });
 
       navButtons.forEach(button => {
         button.classList.toggle(
           "active",
-          button.dataset.page === pageName
+          button.dataset.page === pageId
         );
       });
 
@@ -1817,89 +597,24 @@
       });
     }
 
-
     navButtons.forEach(button => {
 
       button.addEventListener("click", () => {
-
-        switchPage(
-          button.dataset.page
-        );
-
+        switchPage(button.dataset.page);
       });
 
     });
 
 
-    document.querySelectorAll(
-      ".team-apply-button"
-    ).forEach(button => {
+    /*
+      ================================
+      SECURITY
+      ================================
+    */
 
-      button.addEventListener(
-        "click",
-        () => switchPage("application")
-      );
+    function escapeHTML(value) {
 
-    });
-
-
-    /* =========================
-       TEAM RENDERING
-       ========================= */
-
-    function renderTeam() {
-
-      teamGrid.innerHTML =
-        teamMembers.map(member => {
-
-          const firstLetter =
-            member.username
-              .charAt(0)
-              .toUpperCase();
-
-          return `
-            <div class="team-member">
-
-              <div class="team-top">
-
-                <div class="team-avatar">
-                  ${firstLetter}
-                </div>
-
-                <div class="team-member-info">
-
-                  <h3>
-                    ${escapeHTML(member.username)}
-                  </h3>
-
-                  <span class="team-role">
-                    [${escapeHTML(member.role)}]
-                  </span>
-
-                </div>
-
-              </div>
-
-              <a
-                class="team-profile"
-                href="https://scratch.mit.edu/users/${encodeURIComponent(member.username)}/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Scratch Profile ↗
-              </a>
-
-            </div>
-          `;
-
-        }).join("");
-
-    }
-
-
-    function escapeHTML(text) {
-
-      return String(text)
+      return String(value)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -1909,683 +624,64 @@
     }
 
 
+    /*
+      ================================
+      TEAM RENDERING
+      ================================
+    */
+
+    function renderTeam() {
+
+      const teamGrid = document.getElementById("teamGrid");
+
+      teamGrid.innerHTML = "";
+
+      teamMembers.forEach(member => {
+
+        const username = escapeHTML(member.username);
+        const role = escapeHTML(member.role);
+
+        const profileURL =
+          "https://scratch.mit.edu/users/" +
+          encodeURIComponent(member.username) +
+          "/";
+
+        const card = document.createElement("div");
+
+        card.className = "team-card";
+
+        card.innerHTML = `
+          <div class="avatar">
+            ${username.charAt(0).toUpperCase()}
+          </div>
+
+          <div class="team-info">
+
+            <h3>@${username}</h3>
+
+            <div class="role">
+              ${role}
+            </div>
+
+            <a
+              class="scratch-link"
+              href="${profileURL}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Scratch Profile ↗
+            </a>
+
+          </div>
+        `;
+
+        teamGrid.appendChild(card);
+
+      });
+
+    }
+
     renderTeam();
-
-
-    /* =========================
-       CHARACTER COUNTERS
-       ========================= */
-
-    const counterLimits = {
-      why: 1000,
-      questions: 500,
-      improve: 1000
-    };
-
-
-    function updateCounters() {
-
-      Object.keys(counterLimits).forEach(id => {
-
-        const textarea =
-          document.getElementById(id);
-
-        const counter =
-          document.getElementById(
-            `${id}Counter`
-          );
-
-        if (!textarea || !counter) return;
-
-        counter.textContent =
-          `${textarea.value.length} / ${counterLimits[id]}`;
-
-      });
-
-    }
-
-
-    Object.keys(counterLimits).forEach(id => {
-
-      const textarea =
-        document.getElementById(id);
-
-      if (!textarea) return;
-
-      textarea.addEventListener(
-        "input",
-        updateCounters
-      );
-
-    });
-
-
-    updateCounters();
-
-
-    /* =========================
-       RATING
-       ========================= */
-
-    const ratingLabels = {
-      1: "Very poor",
-      2: "Poor",
-      3: "Needs improvement",
-      4: "Below average",
-      5: "Average",
-      6: "Pretty good",
-      7: "Good",
-      8: "Very good",
-      9: "Excellent",
-      10: "Amazing"
-    };
-
-
-    function updateRating() {
-
-      const selected =
-        form.querySelector(
-          'input[name="Slime RNG Rating"]:checked'
-        );
-
-      if (!selected) {
-
-        ratingDisplay.textContent = "";
-
-        return;
-      }
-
-      const value =
-        selected.value;
-
-      ratingDisplay.textContent =
-        `${value}/10 — ${ratingLabels[value]}`;
-
-    }
-
-
-    form.querySelectorAll(
-      'input[name="Slime RNG Rating"]'
-    ).forEach(input => {
-
-      input.addEventListener(
-        "change",
-        () => {
-
-          updateRating();
-          saveDraft();
-
-        }
-      );
-
-    });
-
-
-    /* =========================
-       DRAFT SAVING
-       ========================= */
-
-    function saveDraft() {
-
-      const data = {};
-
-      const fields =
-        form.querySelectorAll(
-          "input, textarea"
-        );
-
-      fields.forEach(field => {
-
-        if (
-          field.type === "radio"
-        ) {
-
-          if (field.checked) {
-
-            data[field.name] =
-              field.value;
-
-          }
-
-        } else {
-
-          data[field.id] =
-            field.value;
-
-        }
-
-      });
-
-
-      localStorage.setItem(
-        DRAFT_KEY,
-        JSON.stringify(data)
-      );
-
-      saveStatus.textContent =
-        "Draft saved on this device.";
-
-    }
-
-
-    function restoreDraft() {
-
-      const saved =
-        localStorage.getItem(DRAFT_KEY);
-
-      if (!saved) return;
-
-      try {
-
-        const data =
-          JSON.parse(saved);
-
-
-        Object.keys(data).forEach(key => {
-
-          const radio =
-            form.querySelector(
-              `input[type="radio"][name="${CSS.escape(key)}"][value="${CSS.escape(data[key])}"]`
-            );
-
-          if (radio) {
-
-            radio.checked = true;
-
-            return;
-          }
-
-
-          const field =
-            document.getElementById(key);
-
-          if (field) {
-
-            field.value =
-              data[key];
-
-          }
-
-        });
-
-
-        updateCounters();
-        updateRating();
-
-        saveStatus.textContent =
-          "Saved draft restored.";
-
-      } catch {
-
-        localStorage.removeItem(
-          DRAFT_KEY
-        );
-
-      }
-
-    }
-
-
-    form.addEventListener(
-      "input",
-      () => {
-
-        saveDraft();
-
-      }
-    );
-
-
-    form.addEventListener(
-      "change",
-      () => {
-
-        saveDraft();
-
-      }
-    );
-
-
-    restoreDraft();
-
-
-    /* =========================
-       CLEAR FORM
-       ========================= */
-
-    clearButton.addEventListener(
-      "click",
-      () => {
-
-        const confirmed =
-          confirm(
-            "Are you sure you want to clear your application? Your saved draft will be deleted."
-          );
-
-        if (!confirmed) return;
-
-
-        form.reset();
-
-        localStorage.removeItem(
-          DRAFT_KEY
-        );
-
-
-        form.querySelectorAll(
-          ".input-error"
-        ).forEach(element => {
-
-          element.classList.remove(
-            "input-error"
-          );
-
-        });
-
-
-        validationMessage.classList.remove(
-          "show"
-        );
-
-
-        ratingDisplay.textContent = "";
-
-        updateCounters();
-
-
-        saveStatus.textContent =
-          "Form cleared. No draft is currently saved.";
-
-      }
-    );
-
-
-    /* =========================
-       VALIDATION
-       ========================= */
-
-    function validateForm() {
-
-      let valid = true;
-
-
-      form.querySelectorAll(
-        ".input-error"
-      ).forEach(element => {
-
-        element.classList.remove(
-          "input-error"
-        );
-
-      });
-
-
-      validationMessage.classList.remove(
-        "show"
-      );
-
-
-      const username =
-        document.getElementById("username");
-
-      const hours =
-        document.getElementById("hours");
-
-      const why =
-        document.getElementById("why");
-
-
-      const active =
-        form.querySelector(
-          'input[name="Active on Scratch"]:checked'
-        );
-
-
-      const scratcher =
-        form.querySelector(
-          'input[name="Are you a Scratcher"]:checked'
-        );
-
-
-      const rating =
-        form.querySelector(
-          'input[name="Slime RNG Rating"]:checked'
-        );
-
-
-      if (
-        username.value.trim().length < 2
-      ) {
-
-        username.classList.add(
-          "input-error"
-        );
-
-        valid = false;
-
-      }
-
-
-      if (
-        hours.value.trim() === ""
-      ) {
-
-        hours.classList.add(
-          "input-error"
-        );
-
-        valid = false;
-
-      }
-
-
-      if (
-        why.value.trim().length < 10
-      ) {
-
-        why.classList.add(
-          "input-error"
-        );
-
-        valid = false;
-
-      }
-
-
-      if (!active) {
-
-        document
-          .querySelector(
-            "#activeYes + label"
-          )
-          ?.closest(".options")
-          ?.classList.add(
-            "input-error"
-          );
-
-        valid = false;
-
-      }
-
-
-      if (!scratcher) {
-
-        document
-          .querySelector(
-            "#scratcherYes + label"
-          )
-          ?.closest(".options")
-          ?.classList.add(
-            "input-error"
-          );
-
-        valid = false;
-
-      }
-
-
-      if (!rating) {
-
-        document
-          .querySelector(
-            ".rating"
-          )
-          ?.classList.add(
-            "input-error"
-          );
-
-        valid = false;
-
-      }
-
-
-      if (!valid) {
-
-        validationMessage.classList.add(
-          "show"
-        );
-
-        validationMessage.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-      }
-
-
-      return valid;
-
-    }
-
-
-    /* =========================
-       SUBMISSION
-       ========================= */
-
-    form.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-
-        if (!validateForm()) {
-          return;
-        }
-
-
-        /*
-          This is only browser-side duplicate protection.
-          It does not prevent someone from submitting
-          from another browser/device.
-        */
-
-        if (
-          localStorage.getItem(
-            SUBMITTED_KEY
-          ) === "true"
-        ) {
-
-          alert(
-            "An application has already been submitted from this browser. If you need to submit another application, please contact the Slime RNG team."
-          );
-
-          return;
-        }
-
-
-        submitButton.disabled = true;
-        clearButton.disabled = true;
-
-        submitButton.textContent =
-          "Submitting Application...";
-
-        saveStatus.textContent =
-          "Sending your application...";
-
-
-        try {
-
-          const response =
-            await fetch(
-              form.action,
-              {
-                method: "POST",
-                body: new FormData(form),
-                headers: {
-                  "Accept":
-                    "application/json"
-                }
-              }
-            );
-
-
-          if (!response.ok) {
-            throw new Error(
-              "Submission failed"
-            );
-          }
-
-
-          localStorage.setItem(
-            SUBMITTED_KEY,
-            "true"
-          );
-
-
-          localStorage.removeItem(
-            DRAFT_KEY
-          );
-
-
-          form.style.display =
-            "none";
-
-          successMessage.style.display =
-            "block";
-
-
-          saveStatus.textContent =
-            "Application submitted.";
-
-
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
-
-
-        } catch (error) {
-
-          submitButton.disabled =
-            false;
-
-          clearButton.disabled =
-            false;
-
-          submitButton.textContent =
-            "Submit Application";
-
-
-          saveStatus.textContent =
-            "Your draft is still saved on this device.";
-
-
-          alert(
-            "Something went wrong while submitting the form. Please try again."
-          );
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       ALREADY SUBMITTED
-       ========================= */
-
-    function checkAlreadySubmitted() {
-
-      if (
-        localStorage.getItem(
-          SUBMITTED_KEY
-        ) !== "true"
-      ) {
-        return;
-      }
-
-
-      form.style.display =
-        "none";
-
-
-      successMessage.style.display =
-        "block";
-
-
-      successMessage.querySelector(
-        "h2"
-      ).textContent =
-        "Application Already Submitted";
-
-
-      successMessage.querySelector(
-        "p"
-      ).textContent =
-        "An application has already been submitted from this browser.";
-
-
-      const secondParagraph =
-        successMessage.querySelectorAll(
-          "p"
-        )[1];
-
-
-      if (secondParagraph) {
-
-        secondParagraph.textContent =
-          "If you need to contact the Slime RNG team, please do so through Scratch.";
-
-      }
-
-    }
-
-
-    checkAlreadySubmitted();
-
-
-    /* =========================
-       CLEAN UP INPUT ERRORS
-       ========================= */
-
-    form.addEventListener(
-      "input",
-      event => {
-
-        if (
-          event.target.classList.contains(
-            "input-error"
-          )
-        ) {
-
-          event.target.classList.remove(
-            "input-error"
-          );
-
-        }
-
-
-        validationMessage.classList.remove(
-          "show"
-        );
-
-      }
-    );
-
-
-    form.addEventListener(
-      "change",
-      () => {
-
-        validationMessage.classList.remove(
-          "show"
-        );
-
-        document
-          .querySelectorAll(
-            ".options.input-error, .rating.input-error"
-          )
-          .forEach(element => {
-
-            element.classList.remove(
-              "input-error"
-            );
-
-          });
-
-      }
-    );
 
   </script>
 
